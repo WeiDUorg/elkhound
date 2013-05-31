@@ -135,7 +135,7 @@ bcparse: $(bcparse-deps) $(libraries)
 
 # -------------------- clean, etc. -------------------
 clean:
-	rm -f *.o *.d *.gen.* *.tab.* *.output a.out core
+	rm -f *.o *.d *.gen.* *.tab.* *.output a.out core testcout
 	rm -f bcparse.y c.tok
 	rm -f lexer2 cparse bcparse
 

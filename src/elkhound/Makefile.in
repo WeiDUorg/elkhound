@@ -552,7 +552,8 @@ CLEAN_PATTERNS := \
   *.bin \
   *.output \
   a.out \
-  core
+  core \
+  testcout
 
 clean: gcom-clean
 	rm -f $(CLEAN_PATTERNS)
@@ -569,7 +570,7 @@ clean: gcom-clean
 	done
 	$(MAKE) -C c clean
 
-distclean: clean
+distclean: clean toolclean
 	rm -f Makefile config.status config.summary glrconfig.h *.tmp
 	cd triv; rm -rf sssx.in ssx.in eeb.in
 	$(MAKE) -C c distclean

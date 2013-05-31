@@ -22,4 +22,6 @@ ccsstr
 /src/elkhound/examples/arith/arithyy.cc
 /src/ast/ext1.h
 /src/ast/ext1.cc
+/src/ast/example.h
+/src/ast/example.cc
 TAGS

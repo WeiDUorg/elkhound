@@ -170,9 +170,9 @@ check: ccsstr
 # delete outputs of compiler, linker
 clean:
 	rm -f *.o tmp *.d
-	rm -f agrampar astgen ccsstr towner exampletest libast.a testcout ext1.h ext1.cc
+	rm -f agrampar astgen ccsstr towner exampletest libast.a testcout
 	rm -f agrampar.output
-	rm -f example.{h.cc} ext1.{h,cc}
+	rm -f example.h example.cc ext1.h ext1.cc
 	rm -f agramlex.yy.cc
 
 # return to pristine checked-out state

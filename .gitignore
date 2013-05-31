@@ -20,4 +20,6 @@ ccsstr
 /src/elkhound/grampar.tab.*
 /src/elkhound/c/lexer1yy.cc
 /src/elkhound/examples/arith/arithyy.cc
+/src/ast/ext1.h
+/src/ast/ext1.cc
 TAGS

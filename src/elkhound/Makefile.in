@@ -208,7 +208,7 @@ grampar.tab.cc grampar.tab.h grampar.codes.h: grampar.y
 	mv -f grampar.tab.h tmp
 	sed -e 's/typedef union {/typedef union YYSTYPE {/' <tmp >grampar.tab.h
 	rm tmp
-	head -n 72 grampar.tab.h > grampar.codes.h
+	head -n 70 grampar.tab.h > grampar.codes.h
 #	grep '# *define' grampar.tab.h >grampar.codes.h
 
 

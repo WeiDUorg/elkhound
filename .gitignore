@@ -4,6 +4,8 @@
 *.d
 *.tmp
 *.output
+*.exe
+*.gen.*
 /src/elkhound/Makefile
 /src/elkhound/c/Makefile
 /src/smbase/Makefile
@@ -11,7 +13,12 @@
 config.status
 config.summary
 testcout
-ccsstr
+/src/ast/ccsstr
+/src/ast/astgen
+/src/elkhound/elkhound
+/src/elkhound/c/cparse
+/src/elkhound/c/lexer2
+/src/elkhound/examples/arith/arith
 /src/elkhound/glrconfig.h
 /src/ast/agramlex.yy.cc
 /src/ast/agrampar.codes.*
@@ -20,6 +27,8 @@ ccsstr
 /src/elkhound/grampar.tab.*
 /src/elkhound/c/lexer1yy.cc
 /src/elkhound/examples/arith/arithyy.cc
+/src/elkhound/c/c.tok
+/src/elkhound/gramlex.yy.cc
 /src/ast/ext1.h
 /src/ast/ext1.cc
 /src/ast/example.h

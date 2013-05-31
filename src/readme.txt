@@ -1,6 +1,10 @@
 Changed by Valerio Bigiani on 2009-01-26 to fix an issue in run-flex.pl and
 remove Elsa.
 
+Changed by Fredrik Lindgren on 2013-05-31 and onward. See git log for changes.
+Prior to that (circa 2011) there were other changes of an unspecified nature,
+made by a benevolent passer-by.
+
 readme.txt for Elkhound/Elsa distribution
 -----------------------------------------
 

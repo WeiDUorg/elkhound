@@ -23,7 +23,9 @@
 
 /* ================== bison declarations =================== */
 // don't use globals
-%pure_parser
+%pure-parser
+%parse-param {void* parseParam}
+%lex-param {void* parseParam}
 
 
 /* ===================== tokens ============================ */

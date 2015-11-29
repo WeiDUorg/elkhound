@@ -65,7 +65,7 @@ agrampar.tab.cc agrampar.tab.h agrampar.codes.h: agrampar.y
 	mv -f agrampar.tab.h tmp
 	sed -e 's/typedef union {/typedef union YYSTYPE {/' < tmp > agrampar.tab.h
 	rm tmp
-	head -n 73 agrampar.tab.h > agrampar.codes.h
+	head -n 78 agrampar.tab.h | tail -36 > agrampar.codes.h
 #	grep '# *define' agrampar.tab.h > agrampar.codes.h
 
 agrampar.tab.o: ast.hand.h ast.ast.h agrampar.h

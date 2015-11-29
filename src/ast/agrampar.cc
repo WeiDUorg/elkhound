@@ -115,7 +115,7 @@ int agrampar_yylex(YYSTYPE *lvalp, void *parseParam)
 }
 
 
-void agrampar_yyerror(char const *msg, void *parseParam)
+void agrampar_yyerror(void *parseParam, char const *msg)
 {
   ((ASTParseParams*)parseParam)->lexer.err(msg);
 }

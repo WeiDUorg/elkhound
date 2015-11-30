@@ -23,7 +23,7 @@ class StringTable;        // strtable.h
 // name of extra parameter to yyparse (i.e. the context in
 // which the parser operates, instead of that being stored
 // in some collection of globals)
-#define YYPARSE_PARAM parseParam
+//#define YYPARSE_PARAM parseParam
 
 // type of thing extra param points at
 struct ParseParams {
@@ -59,7 +59,7 @@ extern int yydebug;
 int grampar_yylex(union YYSTYPE *lvalp, void *parseParam);
 
 // error printer
-void grampar_yyerror(char const *message, void *parseParam);
+void grampar_yyerror(void *parseParam, char const *message);
 
 
 // ---------------- grampar's parsing structures ---------------

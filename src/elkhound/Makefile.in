@@ -152,7 +152,7 @@ support-set := \
 %.tab.c %.tab.o %.tab.h: %.y
 	bison -d -v $*.y
 	mv $*.tab.c $*.tab.c.orig
-	sed -e 's/YYSTYPE yyval;/YYSTYPE yyval = 0;/' \
+	sed -e 's/YYSTYPE yyval;/YYSTYPE yyval = {0};/' \
 	    -e 's/__attribute__ ((__unused__))//' \
 	  <$*.tab.c.orig >$*.tab.c
 	rm $*.tab.c.orig

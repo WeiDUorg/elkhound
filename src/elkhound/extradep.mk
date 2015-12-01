@@ -1,6 +1,6 @@
 glr.o: glrconfig.h
 gramexpl.o: glrconfig.h
-gramlex.yy.o: grampar.codes.h
+gramlex.yy.o: grampar.tab.h
 grampar.o: gramast.ast.gen.h
 grampar.o: grampar.tab.h
 grampar.tab.o: gramast.ast.gen.h

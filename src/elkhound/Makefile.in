@@ -197,9 +197,8 @@ gramast.ast.gen.cc gramast.ast.gen.h: gramast.ast $(AST)/astgen
 
 # bison implementation of grammar parser.
 # I have to make some changes to the generated output so it will compile
-# with a C++ compiler, and want to extract the codes so they're available
-# separately without having to know about all of the types in YYSTYPE.
-grampar.tab.cc grampar.tab.h grampar.codes.h: grampar.y
+# with a C++ compiler.
+grampar.tab.cc grampar.tab.h: grampar.y
 	bison -d -v grampar.y
 	mv -f grampar.tab.c tmp
 	sed -e 's/typedef union {/typedef union YYSTYPE {/' \
@@ -208,8 +207,6 @@ grampar.tab.cc grampar.tab.h grampar.codes.h: grampar.y
 	mv -f grampar.tab.h tmp
 	sed -e 's/typedef union {/typedef union YYSTYPE {/' <tmp >grampar.tab.h
 	rm tmp
-	head -n 70 grampar.tab.h > grampar.codes.h
-#	grep '# *define' grampar.tab.h >grampar.codes.h
 
 
 # new C++ grammar with treebuilding actions
@@ -579,7 +576,7 @@ distclean: clean toolclean
 
 # 'clean', plus remove distributed output files from bison
 toolclean: clean
-	rm -f grampar.tab.cc grampar.tab.h grampar.codes.h
+	rm -f grampar.tab.cc grampar.tab.h
 	$(MAKE) -C examples/arith toolclean
 	$(MAKE) -C c toolclean
 

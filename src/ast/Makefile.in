@@ -49,14 +49,9 @@ config.status: configure.pl $(SMBASE)/sm_config.pm
 
 
 # ---------------------- intermediate files -------------------
-# for bison-1.28:
-  # unfortunately, the way bison.simple declares YYSTYPE precludes a proper
-  # declaration of yylex(), unless I modify it as below; the 'grep' is so
-  # I have a .h file without the union, since the union refers to types
-  # whose declarations I'd like to avoid spreading everywhere
 # for bison-1.875:
   # g++ doesn't like __attribute__((__unused__))
-agrampar.tab.cc agrampar.tab.h agrampar.codes.h: agrampar.y
+agrampar.tab.cc agrampar.tab.h: agrampar.y
 	bison -d -v agrampar.y
 	mv -f agrampar.tab.c tmp
 	sed -e 's/typedef union {/typedef union YYSTYPE {/' \
@@ -65,14 +60,12 @@ agrampar.tab.cc agrampar.tab.h agrampar.codes.h: agrampar.y
 	mv -f agrampar.tab.h tmp
 	sed -e 's/typedef union {/typedef union YYSTYPE {/' < tmp > agrampar.tab.h
 	rm tmp
-	head -n 78 agrampar.tab.h | tail -36 > agrampar.codes.h
-#	grep '# *define' agrampar.tab.h > agrampar.codes.h
 
 agrampar.tab.o: ast.hand.h ast.ast.h agrampar.h
 
 # have to use sed to change the forward declaration of 'istream'
 # into an #include, so the std:: namespace doesn't cause a problem
-agramlex.yy.cc: gramlex.h agramlex.lex agrampar.codes.h
+agramlex.yy.cc: gramlex.h agramlex.lex agrampar.tab.h
 	$(MYFLEX) -o$@ agramlex.lex
 
 
@@ -184,7 +177,6 @@ distclean: clean toolclean
 toolclean: clean
 	rm -f agrampar.tab.h
 	rm -f agrampar.tab.cc
-	rm -f agrampar.codes.h
 
 # test for owner
 towner: owner.h towner.o

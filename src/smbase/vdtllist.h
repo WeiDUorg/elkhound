@@ -39,13 +39,13 @@ public:
   // this syntax just makes the implementation inherited from
   // 'VoidList' public, whereas it would default to private,
   // since it was inherited privately
-  VoidList::count;
+  using VoidList::count;
 
   // see voidlist.h for documentation of each of these functions
-  VoidList::isEmpty;
-  VoidList::isNotEmpty;
-  VoidList::nth;
-  VoidList::first;
+  using VoidList::isEmpty;
+  using VoidList::isNotEmpty;
+  using VoidList::nth;
+  using VoidList::first;
   void *last() const                 { xassert(tail); return tail->data; }
 
   // insertion
@@ -59,12 +59,12 @@ public:
   void *removeLast();
   void *removeAt(int index);
   void removeAll();
-  VoidList::removeItem;
+  using VoidList::removeItem;
 
   // list-as-set: selectors
-  VoidList::indexOf;
-  VoidList::indexOfF;
-  VoidList::contains;
+  using VoidList::indexOf;
+  using VoidList::indexOfF;
+  using VoidList::contains;
 
   // list-as-set: mutators
   bool prependUnique(void *newitem);
@@ -74,7 +74,7 @@ public:
 
   // debugging
   void selfCheck() const;
-  VoidList::debugPrint;
+  using VoidList::debugPrint;
 };
 
 

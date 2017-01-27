@@ -47,6 +47,9 @@
 # Fixed by Valerio Bigiani on 2009-01-26 to fix an issue about outputting
 # an unclosed comment.
 
+# Fixed by Fredrik Lindgren on 2017-01-27 to fix an issue about manual
+# hacks chopping up the input
+
 use strict 'subs';
 
 # defaults
@@ -225,10 +228,12 @@ for ($i=0; $i < @lines; $i++) {
   elsif ($state == 6) {
     if ($line =~ m/^yyFlexLexer::yyFlexLexer/) {
       $state++;
-      $i++;       # skip the '{' line, to keep #line numbers in sync
+      # Unhack this because it was generating bad output
+      # append " {\n" to the printed $line if you want it back
+      #$i++;       # skip the '{' line, to keep #line numbers in sync
       chomp($line);
       print OUT ("#ifndef NO_YYFLEXLEXER_METHODS\n" .
-                 $line . " {\n");
+                 $line);
       next;
     }
   }

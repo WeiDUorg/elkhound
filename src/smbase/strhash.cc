@@ -333,7 +333,7 @@ void readDataFromFile(char *inFileName) {
   dataArray = new StringArray(0);
   char *delim = " \t\n\r\v\f";
   std::filebuf fb;
-  fb.open (inFileName, ios::in);
+  fb.open (inFileName, std::ios::in);
   std::istream in(&fb);
   while(true) {
     stringBuilder s;
@@ -492,7 +492,7 @@ void initFromFlags(int &argc, char**&argv) {
       }
     } else if (strcmp(*argv, "--file")==0) {
       if (numRandStrs) {
-        std::cout << "do not use --random and --file together" << endl;
+        std::cout << "do not use --random and --file together" << std::endl;
         usage();
         exit(1);
       }

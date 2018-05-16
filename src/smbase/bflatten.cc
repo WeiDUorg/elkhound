@@ -92,7 +92,7 @@ void BFlatten::xferSerf(void *&serfPtr, bool nullable)
   }
   else /*reading*/ {
     // read the int name
-    int name = readInt();
+    intptr_t name = readInt();
 
     if (name == 0) {      // null
       xassert(nullable);

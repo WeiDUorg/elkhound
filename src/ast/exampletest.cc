@@ -29,15 +29,15 @@ int main() {
   Super *s4 = new Sub2(4, 104);
 
   // **** render it into xml
-  cout << "**************** first" << endl;
+  std::cout << "**************** first" << std::endl;
   nl0->xmlPrint(cout,0);
-  cout << "**************** second" << endl;
+  std::cout << "**************** second" << std::endl;
   al0->xmlPrint(cout,0);
-  cout << "**************** third" << endl;
+  std::cout << "**************** third" << std::endl;
   s3->xmlPrint(cout,0);
-  cout << "**************** fourth" << endl;
+  std::cout << "**************** fourth" << std::endl;
   s4->xmlPrint(cout,0);
-  cout << "**************** done" << endl;
+  std::cout << "**************** done" << std::endl;
 
   return 0;
 }

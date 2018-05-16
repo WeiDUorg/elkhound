@@ -749,10 +749,10 @@ VoidListIter::VoidListIter(VoidList const &list, int pos)
 // whereas isSorted would forget that info)
 void verifySorted(VoidList const &list)
 {
-  int prev = 0;
+  intptr_t prev = 0;
   VoidListIter iter(list);
   for (; !iter.isDone(); iter.adv()) {
-    int current = (int)iter.data();
+    intptr_t current = (intptr_t)iter.data();
     xassert(prev <= current);    // numeric address test
     prev = current;
   }

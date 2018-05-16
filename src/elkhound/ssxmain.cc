@@ -118,14 +118,14 @@ int entry(int argc, char *argv[])
   // count # of parses
   PTreeNode *top = (PTreeNode*)treeTop;
   TreeCount numParses = top->countTrees();
-  cout << "num parses: " << numParses << endl;
+  std::cout << "num parses: " << numParses << std::endl;
 
   // print what it should be
   int n = (inputLen - 1) / 2;
-  cout << "input is x^" << inputLen
-       << "; C(" << n
-       << ") = " << C(n)
-       << endl;
+  std::cout << "input is x^" << inputLen
+            << "; C(" << n
+            << ") = " << C(n)
+            << std::endl;
 
   return 0;
 }

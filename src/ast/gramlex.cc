@@ -8,6 +8,10 @@
 
 #include <fstream>       // std::cout, std::ifstream
 
+// might break earlier flex versions
+#ifndef FLEX_STD
+  #define FLEX_STD std::
+#endif // FLEX_STD
 
 // workaround for flex-2.5.31 and later
 #ifndef yy_current_buffer    // FlexLexer.h changed function

@@ -468,9 +468,9 @@ string vstringf(char const *format, va_list args)
 
 void test(unsigned long val)
 {
-  //std::cout << stringb(val << " in hex: 0x" << stringBuilder::Hex(val)) << endl;
+  //std::cout << stringb(val << " in hex: 0x" << stringBuilder::Hex(val)) << std::endl;
 
-  std::cout << stringb(val << " in hex: " << SBHex(val)) << endl;
+  std::cout << stringb(val << " in hex: " << SBHex(val)) << std::endl;
 }
 
 int main()
@@ -483,7 +483,7 @@ int main()
   test(1);
 
   std::cout << "stringf: " << stringf("int=%d hex=%X str=%s char=%c float=%f",
-                                 5, 0xAA, "hi", 'f', 3.4) << endl;
+                                 5, 0xAA, "hi", 'f', 3.4) << std::endl;
 
   std::cout << "tests passed\n";
 

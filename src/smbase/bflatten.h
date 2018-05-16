@@ -15,7 +15,7 @@ private:     // data
 
   struct OwnerMapping {
     void *ownerPtr;       // a pointer
-    int intName;          // a unique integer name
+    intptr_t intName;     // a unique integer name
   };
   OwnerHashTable<OwnerMapping> ownerTable;      // owner <-> int mapping
   int nextUniqueName;     // counter for making int names

@@ -496,7 +496,7 @@ void entry()
             dict2.remove(key.c_str());
           }
           else {
-            dict2.modify(key.c_str(), (void*)((int)value + 24));
+            dict2.modify(key.c_str(), (void*)((intptr_t)value + 24));
           }
           xassert(dict2 != dict);
         }

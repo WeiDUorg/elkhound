@@ -2231,7 +2231,7 @@ STATICDEF ItemSet const *ItemSet::dataToKey(ItemSet *data)
 
 STATICDEF unsigned ItemSet::hash(ItemSet const *key)
 {
-  unsigned crc = key->kernelItemsCRC;
+  uintptr_t crc = key->kernelItemsCRC;
   return HashTable::lcprngHashFn((void*)crc);
 }
 

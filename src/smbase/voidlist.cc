@@ -775,7 +775,7 @@ void testSorting()
       list3.removeAll();
       numItems = rand()%ITEMS;
       loopj(numItems) {
-        void *toInsert = (void*)( (rand()%ITEMS) * 4 );
+        void *toInsert = (void*)( (size_t)(rand()%ITEMS) * 4 );
 	list1.prepend(toInsert);
         list3.insertSorted(toInsert, VoidList::pointerAddressDiff);
       }

@@ -427,7 +427,7 @@ string randKey(StringVoidDict const &dict)
 
 void *randVoidPtr()
 {
-  return (void*)(myrandom(100) * 8);
+  return (void*)((size_t)myrandom(100) * 8);
 }
 
 

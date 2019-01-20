@@ -13,7 +13,7 @@ $| = 1;
 sub get_sm_config_version {
   $main::CC = getEnvOrDefault("CC", "gcc");
   $main::CXX = getEnvOrDefault("CXX", "g++");
-  @main::CCFLAGS = ("-g", "-Wall", "-Wno-deprecated", "-D__UNIX__");
+  @main::CCFLAGS = ("-g", "-Wall", "-D__UNIX__", "-Wno-class-memaccess", "-Wno-nonnull-compare", "-fno-strict-aliasing");
   $main::debug = 0;
   $main::target = 0;
   $main::no_dash_g = 0;
@@ -317,12 +317,7 @@ sub test_CXX_compiler {
   print("Testing C++ compiler ...\n");
   my $cmd = "$main::CXX -o $testcout @main::CCFLAGS $main::SMBASE/testcout.cc";
   if (system($cmd)) {
-    # maybe problem is -Wno-deprecated?
-    printf("Trying without -Wno-deprecated ...\n");
-    @main::CCFLAGS = grep { $_ ne "-Wno-deprecated" } @main::CCFLAGS;
-    $cmd = "$main::CXX -o $testcout @main::CCFLAGS $main::SMBASE/testcout.cc";
-    if (system($cmd)) {
-      print(<<"EOF");
+    print(<<"EOF");
 
 I was unable to compile a really simple C++ program.  I tried:
   cd $wd
@@ -334,7 +329,6 @@ Until this is fixed, smbase (and any software that depends on it) will
 certainly not compile either.
 EOF
       exit(2);
-    }
   }
 
   if (!$target) {
@@ -369,9 +363,6 @@ EOF
     print("because we are in cross mode, I will not try running '$testcout'\n",
           "but it might be a good idea to try that yourself\n");
   }
-
-  # make a variant, CFLAGS, that doesn't include -Wno-deprecated
-  @main::CFLAGS = grep { $_ ne "-Wno-deprecated" } @main::CCFLAGS;
 }
 
 

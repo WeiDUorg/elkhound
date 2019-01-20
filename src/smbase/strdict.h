@@ -58,8 +58,8 @@ public:     // types
     IterC& operator= (IterC const &obj) { Iter::operator=(obj); return *this; }
 
     // some operations can be made available unchanged
-    Iter::isDone;
-    Iter::next;
+    using Iter::isDone;
+    using Iter::next;
 
     // others must be const-ified
     string const &key() const { return Iter::key(); }

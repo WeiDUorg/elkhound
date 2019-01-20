@@ -3293,27 +3293,6 @@ void GrammarAnalysis::computeParseTables(bool allowAmbig)
       // add this entry to the table
       tables->setActionEntry(state->id, termId, cellAction);
 
-      // based on the contents of 'reductions', decide whether this
-      // state is delayed or not; to be delayed, the state must be
-      // able to reduce by a production which:
-      //   - has an ambiguous nonterminal as the last symbol on its RHS
-      //   - is not reducing to the *same* nonterminal as the last symbol
-      //     (rationale: eagerly reduce "E -> E + E")
-      // UPDATE: removed last condition because it actually makes things
-      // worse..
-      bool delayed = false;
-      if (reductions.isNotEmpty()) {    // no reductions: eager (irrelevant, actually)
-        SFOREACH_PRODUCTION(reductions, prodIter) {
-          Production const &prod = *prodIter.data();
-          if (prod.rhsLength() >= 1) {                 // nonempty RHS?
-            Symbol const *lastSym = prod.right.lastC()->sym;
-            if (isAmbiguousNonterminal(lastSym)        // last RHS ambig?
-                /*&& lastSym != prod.left*/) {         // not same as LHS?
-              delayed = true;
-            }
-          }
-        }
-      }
     }
 
     // ---- fill in this row in the goto table ----

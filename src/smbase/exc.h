@@ -50,7 +50,7 @@ bool unwinding_other(xBase const &x);
 #define CAUTIOUS_RELAY           \
   catch (xBase &x) {             \
     if (!unwinding_other(x)) {   \
-      throw;   /* re-throw */    \
+      std::terminate();   /* terminate */ \
     }                            \
   }
 

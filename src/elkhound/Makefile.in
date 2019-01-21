@@ -5,7 +5,7 @@
 #tmp: mlsstr
 
 # main targets: elkhound, and some examples
-all: elkhound libelkhound.a forbid.gr.gen.out arith c cc2/cc2.exe
+all: elkhound #libelkhound.a forbid.gr.gen.out arith c cc2/cc2.exe
 	@echo BUILD FINISHED
 
 

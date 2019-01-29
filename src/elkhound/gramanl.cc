@@ -4788,8 +4788,19 @@ void emitSwitchCode(Grammar const &g, EmitCode &out,
         }
         else {
           // use the terminal map
-          out << "      std::cout << \"WARNING: there is no action to deallocate terminal \"\n"
-                 "           << termNames[" << switchVar << "] << std::endl;\n";
+
+          // Using 0 for arrayMin might perhaps not be safe; I don't
+          // know if the code can ever generate valid indices less
+          // than 0. But if it turns out to be a bad choice, it can be
+          // fixed by reducing the syms list to its least index and
+          // emitting that instead. /FL
+          out <<
+            "      int arrayMin = 0;\n"
+            "      int arrayMax = " << syms.count() << ";\n"
+            "      xassert(" << switchVar << " >= arrayMin &&"
+            " " << switchVar << " < arrayMax);\n"
+            "      std::cout << \"WARNING: there is no action to deallocate terminal \"\n"
+            "        << termNames[" << switchVar << "] << std::endl;\n";
         }
       }
       else {

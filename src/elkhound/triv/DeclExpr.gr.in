@@ -24,7 +24,7 @@ nonterm Stmt {
 }
 
 nonterm Decl {
-  -> Id/*type*/ Declarator;
+  -> Id Declarator;
 }
 
 nonterm Id {

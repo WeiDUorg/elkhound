@@ -31,8 +31,10 @@ nonterm Ident {
   fun maximal() {}          // use maximal munch disambiguation
   -> "f";
   -> "i";
+  -> "a";
   -> "f" Ident;
   -> "i" Ident;
+  -> "a" Ident;
   subsets If, Fi;           // prefer keywords to identifiers
 }
 

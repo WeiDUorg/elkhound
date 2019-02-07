@@ -3,8 +3,6 @@
 // working from ISO/IEC 14882:1998(E)
 // Ocaml version
 
-option lang_OCaml;
-
 context_class cc2 {
 public:
 };

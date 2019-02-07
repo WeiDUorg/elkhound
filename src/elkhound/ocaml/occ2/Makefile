@@ -10,7 +10,8 @@ tokens.tok: tokens.h
 
 # run elkhound on a grammar spec
 %.ml: %.gr tokens.tok
-	$(ELKHOUND)/elkhound -v $*.gr
+	$(ELKHOUND)/elkhound -ocaml -v $*.gr
 	rm -f $*.mli
 
-
+clean:
+	rm -f tokens.tok occ2.ml

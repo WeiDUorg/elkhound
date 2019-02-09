@@ -48,6 +48,9 @@ if(EXTRAS)
     # C++ parser based on Standard grammar
     add_subdirectory(elkhound/cc2)
 
+    # C++ parser (unfinished)
+    add_subdirectory(elkhound/ocaml/occ2)
+
     # elkhound examples
     add_subdirectory(elkhound/examples)
 
@@ -75,7 +78,4 @@ if(BUILD_TESTING)
 
     # elkhound ocaml tests
     add_subdirectory(elkhound/ocaml)
-
-    # elkhound ocaml occ2 example/test
-    add_subdirectory(elkhound/ocaml/occ2)
 endif(BUILD_TESTING)

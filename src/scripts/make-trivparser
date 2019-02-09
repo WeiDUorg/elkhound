@@ -109,7 +109,7 @@ while (defined($line = <STDIN>)) {
   ($space, $rule) = ($line =~ /^(\s*)(->.*);\s*$/);
   if (defined($rule)) {
     $len = length($space) + length($rule);
-    print($space, $rule, " " x (25-$len));
+    print($space, $rule, " " x (30-$len));
 
     # text of the rule with quotes escaped
     ($ruleText = $rule) =~ s/\"/\\\"/g;

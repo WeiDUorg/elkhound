@@ -21,7 +21,7 @@ verbatim [
   #define D(msg)
 #else
   #define D(msg) \
-    trace("c") << msg << endl
+    trace("c") << msg << std::endl
 #endif
 
 ]

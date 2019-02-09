@@ -9,8 +9,8 @@
 #include "ptreeact.h"  // ParseTreeLexer, ParseTreeActions
 
 #include <stdio.h>     // getchar
-#include <iostream.h>  // std::cout
-#include <string.h>    // strcmp
+#include <iostream>    // std::cout
+#include <string>      // strcmp
 
 
 class Lexer : public LexerInterface {

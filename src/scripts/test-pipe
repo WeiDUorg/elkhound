@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -e
+
+if [ ! "$1" ]
+then
+    echo "$0 data program"
+    exit 1
+fi
+
+pipe="$1"
+
+shift
+command="$@"
+
+cd "$PWD"
+echo "$pipe" | $command

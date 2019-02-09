@@ -22,9 +22,10 @@ http://www.cs.berkeley.edu/~smcpeak/elkhound/ .
 
 Build instructions:
 
-  $ ./configure
+  $ mkdir build && cd build
+  $ cmake ../src/ -DEXTRAS=ON -DCMAKE_BUILD_TYPE=Release
   $ make
-  $ make check     (optional but a good idea)
+  $ make test     # (optional but a good idea)
 
 This simply does each of these activities in each of the directories:
 smbase, ast, elkhound and elsa.  If a command fails you can restart it

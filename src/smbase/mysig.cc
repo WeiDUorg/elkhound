@@ -164,9 +164,9 @@ int main(int argc, char **argv)
       infiniteRecursion();
     }
 
-    int addr = strtoul(argv[1], NULL /*endp*/, 0 /*radix*/);
+    intptr_t addr = strtoul(argv[1], NULL /*endp*/, 0 /*radix*/);
     printf("about to access 0x%08X ...\n", addr);
-    *((int*)addr) = 0;
+    *((intptr_t*)addr) = 0;
     return 0;     // won't be reached for most values of 'addr'
   }
 

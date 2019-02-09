@@ -20,6 +20,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Option(s)
 option(EXTRAS "Compile extra stuff(examples, cparse, etc)" ON)
+option(OCAML "Run OCaml tests" ON)
 
 # set variables
 set(AST_DIR         ${CMAKE_CURRENT_BINARY_DIR}/ast)
@@ -76,6 +77,8 @@ if(BUILD_TESTING)
     # elkhound tests
     add_subdirectory(elkhound/test)
 
-    # elkhound ocaml tests
-    add_subdirectory(elkhound/ocaml)
+    if(OCAML)
+        # elkhound ocaml tests
+        add_subdirectory(elkhound/ocaml)
+    endif(OCAML)
 endif(BUILD_TESTING)

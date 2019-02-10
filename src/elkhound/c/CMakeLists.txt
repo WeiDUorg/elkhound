@@ -68,7 +68,9 @@ add_executable(lexer2
 )
 
 # extra compile options
-target_compile_options(lexer2 PRIVATE -DTEST_LEXER2) 
+target_compile_options(lexer2 PRIVATE -DTEST_LEXER2)
+# suppress -Wsign-compare for Flex-generated code
+SET_SOURCE_FILES_PROPERTIES( lexer1yy.cc PROPERTIES COMPILE_FLAGS -Wno-sign-compare )
 
 # link options
 target_link_libraries(libcparse smbase ast libelkhound)

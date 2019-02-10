@@ -48,3 +48,4 @@ add_library(smbase STATIC
 
 # extra compile options
 target_compile_options(smbase PRIVATE -Wno-maybe-uninitialized)
+SET_SOURCE_FILES_PROPERTIES( srcloc.cc PROPERTIES COMPILE_FLAGS -Wno-nonnull-compare )

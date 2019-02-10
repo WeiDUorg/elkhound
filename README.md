@@ -30,6 +30,10 @@ cmake can take a few arguments when configuring the build system:
 - `-DOCAML=OFF` or you need to have an OCaml distribution installed
 - `-DCMAKE_BUILD_TYPE=Release` for executables without debug info
 
+If you are building on Cygwin, you may want to add the following line
+to your .bashrc:
+`export CMAKE_LEGACY_CYGWIN_WIN32=0`
+
 ## Additional information
 
 [http://scottmcpeak.com/elkhound/](http://scottmcpeak.com/elkhound/)

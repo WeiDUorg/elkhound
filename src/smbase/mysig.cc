@@ -143,6 +143,8 @@ void printSegfaultAddrs()
 // ------------------ test code ------------------
 #ifdef TEST_MYSIG
 
+#include <stdint.h>
+
 static void infiniteRecursion()
 {
   char buf[1024];
@@ -164,9 +166,9 @@ int main(int argc, char **argv)
       infiniteRecursion();
     }
 
-    intptr_t addr = strtoul(argv[1], NULL /*endp*/, 0 /*radix*/);
-    printf("about to access 0x%08X ...\n", addr);
-    *((intptr_t*)addr) = 0;
+    uintptr_t addr = strtoul(argv[1], NULL /*endp*/, 0 /*radix*/);
+    printf("about to access 0x%08lX ...\n", addr);
+    *((uintptr_t*)addr) = 0;
     return 0;     // won't be reached for most values of 'addr'
   }
 

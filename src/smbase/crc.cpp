@@ -93,7 +93,7 @@ void testCrc(unsigned char const *data, int length, uint32_t crc)
 {
   uint32_t val = crc32(data, length);
   if (val != ~crc) {
-    printf("computed crc is 0x%08lX, expected is 0x%08lX\n",
+    printf("computed crc is 0x%08X, expected is 0x%08X\n",
            val, ~crc);       // why is 'crc' inverted?
     errors++;
   }

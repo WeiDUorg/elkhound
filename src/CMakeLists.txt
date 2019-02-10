@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 3.0)
 # Global C flags
 set(CMAKE_C_FLAGS "-g -Wall -D__UNIX__ -Wno-nonnull-compare -fno-strict-aliasing")
 # Global C++ flags
-set(CMAKE_CXX_FLAGS -Wno-class-memaccess)
+set(CMAKE_CXX_FLAGS "-g -Wall -Wno-class-memaccess")
 
 # Strip & disable debug for Release builds
 set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -s -DNDEBUG")

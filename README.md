@@ -18,7 +18,8 @@ Dependencies:
 
 To build, enter from elkhound's root directory:
 - `mkdir build && cd build`
-- `cmake ../src/`
+- `cmake ../src/ -DCMAKE_BUILD_TYPE=$type` where $type is either
+  `Debug`, `Release` or one of the other CMake build types
 - `make`
 - `make test`
 
@@ -28,7 +29,6 @@ If everything was successful, you'll find the elkhound binary in
 cmake can take a few arguments when configuring the build system:
 - `-DEXTRAS=OFF` for a leaner build that just produces elkhound itself
 - `-DOCAML=OFF` or you need to have an OCaml distribution installed
-- `-DCMAKE_BUILD_TYPE=Release` for executables without debug info
 
 If you are building on Cygwin, you may want to add the following line
 to your .bashrc:

@@ -152,9 +152,7 @@ SourceLocManager::File::File(char const *n, SourceLoc aStartLoc)
          lineLengthsSize * sizeof(this->lineLengths[0]));
 
   this->indexSize = index.length();
-  this->index = new Marker[indexSize];
-  memcpy(this->index, index.getArray(),
-         indexSize * sizeof(this->index[0]));
+  this->index = index.getArrayCopy();
 
   // 'fp' closed by the AutoFILE
 }

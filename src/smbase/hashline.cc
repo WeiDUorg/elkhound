@@ -40,19 +40,7 @@ void HashLineMap::addHashLine(int ppLine, int origLine, char const *origFname)
 
 void HashLineMap::doneAdding()
 {
-  // make a new array of exactly the right size
-  ArrayStack<HashLine> tmp(directives.length());
-
-  // copy all the entries into the new array
-  memcpy(tmp.getDangerousWritableArray(), directives.getArray(),
-         directives.length() * sizeof(HashLine));
-  tmp.setLength(directives.length());
-
-  // swap the internal contents of the two arrays, so 'directives'
-  // becomes the consolidated one
-  tmp.swapWith(directives);
-
-  // now tmp's internal storage will be automatically deleted
+  directives.consolidate();
 }
 
 
@@ -159,6 +147,8 @@ int main()
   hl.addHashLine(76, 5, "foo.cc");
   hl.addHashLine(100, 101, "foo.i");
   hl.doneAdding();
+  int expectedFiles = 3;
+  int expectedDirectives = 4;
 
   // make queries, and check for expected results
   query(hl, 1, 1, "foo.i");
@@ -180,7 +170,25 @@ int main()
   query(hl, 102, 102, "foo.i");
   // ...
 
-  printf("unique filenames: %d\n", hl.numUniqueFilenames());
+  int numFiles = hl.numUniqueFilenames();
+  int numDirectives = hl.numDirectives();
+  int directivesSize = hl.directivesSize();
+  if (numFiles != expectedFiles) {
+    printf("the number of unique files was %d, but I expected %d\n",
+           numFiles, expectedFiles);
+    return 2;
+  }
+  if (numDirectives != expectedDirectives) {
+    printf("the number of directives was %d, but I expected %d\n",
+           numDirectives, expectedDirectives);
+    return 2;
+  }
+  if (directivesSize != expectedDirectives) {
+    printf("the size of directives was %d, but I expected %d\n",
+           directivesSize, expectedDirectives);
+    return 2;
+  }
+
   printf("hashline seems to work\n");
 
   return 0;

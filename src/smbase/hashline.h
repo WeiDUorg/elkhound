@@ -73,6 +73,11 @@ public:     // funcs
   // for curiosity, find out how many unique filenames are recorded in
   // the 'filenames' dictionary
   int numUniqueFilenames() { return filenames.size(); }
+
+  // similarly, the number of directives
+  int numDirectives() { return directives.length(); }
+  // and size of array
+  int directivesSize() {return directives.size(); }
 };
 
 #endif // HASHLINE_H

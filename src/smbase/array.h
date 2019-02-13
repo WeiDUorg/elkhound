@@ -105,6 +105,8 @@ public:      // funcs
   // grab a read-only pointer to the raw array
   T const *getArray() const { return arr; }
 
+  T *getArrayCopy() const;
+
   // grab a writable pointer; use with care
   T *getDangerousWritableArray() { return arr; }
   T *getArrayNC() { return arr; }     // ok, not all that dangerous..
@@ -194,6 +196,16 @@ void GrowArray<T>::setSize(int newSz)
   }
 }
 
+template <class T>
+T *GrowArray<T>::getArrayCopy() const
+{
+  T *ret = new T[sz];
+  for (int i=0; i < sz; i++) {
+    ret[i] = arr[i];
+  }
+
+  return ret;
+}
 
 // this used to be ensureIndexDoubler's implementation, but
 // I wanted the very first check to be inlined
@@ -294,6 +306,8 @@ public:
   // consolidate allocated space to match length
   void consolidate() { this->setSize(length()); }
 
+  T *getArrayCopy() const;
+
   // swap
   void swapWith(ArrayStack<T> &obj) {
     GrowArray<T>::swapWith(obj);
@@ -310,6 +324,17 @@ template <class T>
 ArrayStack<T>::~ArrayStack()
 {}
 
+template <class T>
+T *ArrayStack<T>::getArrayCopy() const
+{
+  T *ret = new T[len];
+  const T *arr = GrowArray<T>::getArray();
+  for (int i = 0; i < len; i++) {
+    ret[i] = arr[i];
+  }
+
+  return ret;
+}
 
 // iterator over contents of an ArrayStack, to make it easier to
 // switch between it and SObjList as a representation

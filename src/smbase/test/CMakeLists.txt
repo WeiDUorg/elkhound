@@ -29,7 +29,6 @@ project(hashline)
 project(gprintf)
 project(smregexp)
 project(vptrmap)
-project(pprint)
 project(boxprint)
 project(tarrayqueue)
 project(testarray)
@@ -167,10 +166,6 @@ add_executable(vptrmap
     ../vptrmap.cc
 )
 
-# files for pprint
-add_executable(pprint
-    ../pprint.cc
-)
 
 # files for boxprint
 add_executable(boxprint
@@ -219,7 +214,6 @@ target_compile_options(hashline PRIVATE -DTEST_HASHLINE)
 target_compile_options(gprintf PRIVATE -DTEST_GPRINTF)
 target_compile_options(smregexp PRIVATE -DTEST_SMREGEXP)
 target_compile_options(vptrmap PRIVATE -DTEST_VPTRMAP)
-target_compile_options(pprint PRIVATE -DTEST_PPRINT)
 target_compile_options(boxprint PRIVATE -DTEST_BOXPRINT)
 target_compile_options(autofile PRIVATE -DTEST_AUTOFILE)
 target_compile_options(bitarray PRIVATE -DTEST_BITARRAY)
@@ -246,7 +240,6 @@ target_link_libraries(srcloc smbase)
 target_link_libraries(hashline smbase)
 target_link_libraries(smregexp smbase)
 target_link_libraries(vptrmap smbase)
-target_link_libraries(pprint smbase)
 target_link_libraries(boxprint smbase)
 target_link_libraries(tarrayqueue smbase)
 target_link_libraries(testarray smbase)
@@ -281,7 +274,6 @@ add_test(NAME hashline COMMAND ./hashline)
 add_test(NAME gprintf COMMAND ./gprintf)
 add_test(NAME smregexp COMMAND ./smregexp)
 add_test(NAME vptrmap COMMAND ./vptrmap)
-add_test(NAME pprint COMMAND ./pprint)
 add_test(NAME boxprint COMMAND ./boxprint)
 add_test(NAME tarrayqueue COMMAND ./tarrayqueue)
 add_test(NAME testarray COMMAND ./testarray)

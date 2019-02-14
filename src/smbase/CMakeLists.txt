@@ -26,7 +26,6 @@ add_library(smbase STATIC
     mysig.cc
     nonport.cpp
     point.cc
-    pprint.cc
     smregexp.cc
     srcloc.cc
     str.cpp

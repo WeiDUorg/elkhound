@@ -381,4 +381,3 @@ void entry()
 USUAL_MAIN
 
 #endif // TEST_SYSERR
-

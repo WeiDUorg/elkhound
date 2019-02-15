@@ -97,4 +97,3 @@ string sysErrorString(char const *syscallName, char const *context=NULL);
 
 
 #endif // __SYSERR_H
-

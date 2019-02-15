@@ -2,7 +2,7 @@
 # smbase tests CMakeLists.txt
 #
 
-# tests 
+# tests
 project(nonport)
 project(voidlist)
 project(vdtllist)
@@ -193,7 +193,7 @@ add_executable(bitarray
 )
 
 # extra compile options
-target_compile_options(nonport PRIVATE -DTEST_NONPORT) 
+target_compile_options(nonport PRIVATE -DTEST_NONPORT)
 target_compile_options(voidlist PRIVATE -DTEST_VOIDLIST)
 target_compile_options(vdtllist PRIVATE -DTEST_VDTLLIST)
 target_compile_options(bit2d PRIVATE -DTEST_BIT2D)

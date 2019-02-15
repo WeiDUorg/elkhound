@@ -99,4 +99,3 @@ int Flatten::readInt()
   xferInt(i);
   return i;
 }
-

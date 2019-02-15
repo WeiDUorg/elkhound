@@ -330,7 +330,7 @@ stringBuilder& stringBuilder::operator<< (char c)
   {                                                      \
     char buf[60];      /* big enough for all types */    \
     int len = sprintf(buf, fmt, arg);                    \
-    if (len >= 60) {					 \
+    if (len >= 60) {                                     \
       abort();    /* too big */                          \
     }                                                    \
     return *this << buf;                                 \

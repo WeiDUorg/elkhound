@@ -37,4 +37,3 @@ void _breaker_assert(char * __cond, char * __file, int __line);
   // assert.h directly)
 
 #endif // __BREAKER_H
-

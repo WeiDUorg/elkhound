@@ -23,4 +23,3 @@ unsigned long long getCycles_ll(void);
 #ifdef __cplusplus
 }
 #endif
-

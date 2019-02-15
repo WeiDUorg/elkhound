@@ -139,7 +139,7 @@ int popen_pipes(int *parentWritesChild, int *parentReadsChild,
 
     // now, duplicate the pipe fds to stdin/stdout
     if (dup2(childReadsParent, STDIN) < -1                         ||
-        dup2(childWritesParent, STDOUT)	< -1                       ||
+        dup2(childWritesParent, STDOUT) < -1                       ||
         (readChildStderr && dup2(childWritesStderr, STDERR) < -1)  ||
         (stderrToStdout && dup2(childWritesParent, STDERR) < -1)   ) {
       die("dup2");

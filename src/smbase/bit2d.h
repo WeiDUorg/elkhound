@@ -11,7 +11,7 @@ class Flatten;
 
 class Bit2d {
 private:     // data
-  byte *data;  	    // bits; [0..stride-1] is first row, etc.
+  byte *data;       // bits; [0..stride-1] is first row, etc.
   bool owning;      // when false, 'data' is not owned by this object
   point size;       // size.x is # of cols, size.y is # of rows
   int stride;       // bytes between starts of adjacent rows;
@@ -67,4 +67,3 @@ public:      // funcs
 };
 
 #endif // __BIT2D_H
-

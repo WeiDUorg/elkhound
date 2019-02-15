@@ -131,10 +131,10 @@ static int digits(int value)
 /*
  * Goal is to draw something like this:
  *
- *     	 1  2  3
- *  1 [	 0  0  0  ]
- *  2 [	 0  1  1  ]
- *  3 [	 0  1  0  ]
+ *       1  2  3
+ *  1 [  0  0  0  ]
+ *  2 [  0  1  1  ]
+ *  3 [  0  1  0  ]
  *
  */
 void Bit2d::print() const
@@ -209,4 +209,3 @@ int main()
 }
 
 #endif // TEST_BIT2D
-

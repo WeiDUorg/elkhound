@@ -153,4 +153,3 @@ inline T div_up(T const &x, T const &y)
 
 
 #endif // __TYP_H
-

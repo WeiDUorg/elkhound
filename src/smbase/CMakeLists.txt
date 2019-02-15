@@ -7,7 +7,7 @@ project(smbase)
 add_library(smbase STATIC
     autofile.cc
     bflatten.cc
-    bit2d.cc 
+    bit2d.cc
     bitarray.cc
     boxprint.cc
     breaker.cpp

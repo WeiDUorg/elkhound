@@ -5029,7 +5029,7 @@ int mALLOPt(param_number, value) int param_number; int value;
 /* Wait for spin lock */
 static int slwait (int *sl) {
     while (InterlockedCompareExchange ((void **) sl, (void *) 1, (void *) 0) != 0)
-	    Sleep (0);
+            Sleep (0);
     return 0;
 }
 
@@ -5097,8 +5097,8 @@ static int region_list_remove (region_list_entry **last) {
     return TRUE;
 }
 
-#define CEIL(size,to)	(((size)+(to)-1)&~((to)-1))
-#define FLOOR(size,to)	((size)&~((to)-1))
+#define CEIL(size,to)   (((size)+(to)-1)&~((to)-1))
+#define FLOOR(size,to)  ((size)&~((to)-1))
 
 #define SBRK_SCALE  0
 /* #define SBRK_SCALE  1 */
@@ -5162,7 +5162,7 @@ static void *sbrk (long size) {
                     assert (0 < remaining_commit_size && remaining_commit_size % g_pagesize == 0); {
                         /* Commit this */
                         void *base_committed = VirtualAlloc (g_last->top_committed, remaining_commit_size,
-							                                 MEM_COMMIT, PAGE_READWRITE);
+                                                                                         MEM_COMMIT, PAGE_READWRITE);
                         /* Check returned pointer for consistency */
                         if (base_committed != g_last->top_committed)
                             goto sbrk_exit;
@@ -5224,7 +5224,7 @@ static void *sbrk (long size) {
                         assert (0 < reserve_size && reserve_size % g_regionsize == 0);
                         /* Try to reserve this */
                         base_reserved = VirtualAlloc (memory_info.BaseAddress, reserve_size,
-					                                  MEM_RESERVE, PAGE_NOACCESS);
+                                                                          MEM_RESERVE, PAGE_NOACCESS);
                         if (! base_reserved) {
                             int rc = GetLastError ();
                             if (rc != ERROR_INVALID_ADDRESS)
@@ -5270,7 +5270,7 @@ static void *sbrk (long size) {
             assert (0 < commit_size && commit_size % g_pagesize == 0); {
                 /* Commit this */
                 void *base_committed = VirtualAlloc (g_last->top_committed, commit_size,
-				    			                     MEM_COMMIT, PAGE_READWRITE);
+                                                                             MEM_COMMIT, PAGE_READWRITE);
                 /* Check returned pointer for consistency */
                 if (base_committed != g_last->top_committed)
                     goto sbrk_exit;
@@ -5390,7 +5390,7 @@ static void *mmap (void *ptr, long size, long prot, long type, long handle, long
     assert (size % g_pagesize == 0);
     /* Allocate this */
     ptr = VirtualAlloc (ptr, size,
-					    MEM_RESERVE | MEM_COMMIT | MEM_TOP_DOWN, PAGE_READWRITE);
+                                            MEM_RESERVE | MEM_COMMIT | MEM_TOP_DOWN, PAGE_READWRITE);
     if (! ptr) {
         ptr = (void *) MORECORE_FAILURE;
         goto mmap_exit;

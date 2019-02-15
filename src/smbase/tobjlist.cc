@@ -130,10 +130,10 @@ void entry()
 
     // test simple modifiers and info
     list.append(c);     PRINT(list);   // c
-    list.prepend(b);   	PRINT(list);   // b c
-    list.append(d);	PRINT(list);   // b c d
-    list.prepend(a);	PRINT(list);   // a b c d
-    list.deleteAt(2);	PRINT(list);   // a b d
+    list.prepend(b);    PRINT(list);   // b c
+    list.append(d);     PRINT(list);   // b c d
+    list.prepend(a);    PRINT(list);   // a b c d
+    list.deleteAt(2);   PRINT(list);   // a b d
 
     xassert( list.count() == 3 &&
              !list.isEmpty() &&
@@ -210,4 +210,3 @@ void entry()
 }
 
 USUAL_MAIN
-

@@ -98,7 +98,7 @@ stringBuilder& operator<< (stringBuilder &sb, fpoint const &pt);
 //           .                          .
 //           .                          .     (each line in succession)
 //           .                          .
-//          0,y-1  1,y-1  2,y-1	 ... x-1,y-1  done
+//          0,y-1  1,y-1  2,y-1  ... x-1,y-1  done
 // can 'break' out of the loop at any time
 
 #define FOREACH_point(size, var)   \
@@ -107,4 +107,3 @@ stringBuilder& operator<< (stringBuilder &sb, fpoint const &pt);
 
 
 #endif // ___POINT_H
-

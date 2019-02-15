@@ -14,7 +14,7 @@
 #define STR_H
 
 #include "typ.h"         // bool
-#include <iostream>	 // istream, ostream
+#include <iostream>      // istream, ostream
 #include <stdarg.h>      // va_list
 #include <string.h>      // strcmp, etc.
 
@@ -51,14 +51,14 @@ enum SmbaseStringFunc { SMBASE_STRING_FUNC };
 class string {
 protected:     // data
   // 10/12/00: switching to never letting s be NULL
-  char *s;     	       	       	       // string contents; never NULL
+  char *s;                             // string contents; never NULL
   static char * const emptyString;     // a global ""; should never be modified
 
 protected:     // funcs
   void dup(char const *source);        // copies, doesn't dealloc first
   void kill();                         // dealloc if str != 0
 
-public:	       // funcs
+public:        // funcs
   string(string const &src) { dup(src.s); }
   string(char const *src) { dup(src); }
   string() { s=emptyString; }
@@ -80,7 +80,7 @@ public:	       // funcs
   void xfer(Flatten &flat);
 
   // simple queries
-  int length() const;  	       	// returns number of non-null chars in the string; length of "" is 0
+  int length() const;           // returns number of non-null chars in the string; length of "" is 0
   bool isempty() const { return s[0]==0; }
   bool contains(char c) const;
 
@@ -122,8 +122,8 @@ public:	       // funcs
   bool equals(char const *src) const { return compareTo(src) == 0; }
   bool equals(string const &src) const { return compareTo(src) == 0; }
 
-  #define MAKEOP(op)							       	 \
-    bool operator op (string const &src) const { return compareTo(src) op 0; }	 \
+  #define MAKEOP(op)                                                             \
+    bool operator op (string const &src) const { return compareTo(src) op 0; }   \
     /*bool operator op (const char *src) const { return compareTo(src) op 0; }*/ \
     /* killed stuff with char* because compilers are too flaky; use compareTo */
   MAKEOP(==)  MAKEOP(!=)

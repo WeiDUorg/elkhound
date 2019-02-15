@@ -11,27 +11,27 @@ void entry()
   TailList<int> list;
 
   list.append(&d);
-  list.prepend(&b);		// 4, 16
-  list.insertAt(&c,1); 		// 4, 8, 16
-  list.append(&e); 		// 4, 8, 16, 42
+  list.prepend(&b);             // 4, 16
+  list.insertAt(&c,1);          // 4, 8, 16
+  list.append(&e);              // 4, 8, 16, 42
 
-  list.removeLast();		// 4, 8, 16
+  list.removeLast();            // 4, 8, 16
 
   xassert( list.count() == 3 &&
-	   !list.isEmpty() &&
-	   list.nth(0) == &b &&
-	   list.nth(1) == &c &&
-	   list.nth(2) == &d &&
-	   list.indexOf(&b) == 0 &&
-	   list.indexOf(&c) == 1 &&
-	   list.indexOf(&e) == -1 &&
-	   list.indexOf(&d) == 2
-	   );
+           !list.isEmpty() &&
+           list.nth(0) == &b &&
+           list.nth(1) == &c &&
+           list.nth(2) == &d &&
+           list.indexOf(&b) == 0 &&
+           list.indexOf(&c) == 1 &&
+           list.indexOf(&e) == -1 &&
+           list.indexOf(&d) == 2
+           );
 
   // FIX: the selfCheck routine in the VoidTailList superclass is broken.
   // list.selfCheck();
 
-  list.prepend(&a);		// 2, 4, 8, 16
+  list.prepend(&a);             // 2, 4, 8, 16
 
   int count = 2;
   FOREACH_TAILLIST_NC(int,list, iter) {

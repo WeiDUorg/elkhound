@@ -19,4 +19,3 @@ void StringSet::remove(char const *elt)
     elts.remove(elt);
   }
 }
-

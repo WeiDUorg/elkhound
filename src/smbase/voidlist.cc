@@ -395,9 +395,9 @@ void VoidList::mergeSort(VoidDiff diff, void *extra)
     // as the right half, or one node longer
 
     // division itself
-    rightHalf.top = slow->next;	 // top half to right
+    rightHalf.top = slow->next;  // top half to right
     leftHalf.top = this->top;    // bottom half to left
-    slow->next = NULL; 	       	 // cut the link between the halves
+    slow->next = NULL;           // cut the link between the halves
   }
 
   // recursively sort the halves
@@ -405,7 +405,7 @@ void VoidList::mergeSort(VoidDiff diff, void *extra)
   rightHalf.mergeSort(diff, extra);
 
   // merge the halves into a single, sorted list
-  VoidNode *merged = NULL;     	 // tail of merged list
+  VoidNode *merged = NULL;       // tail of merged list
   while (leftHalf.top != NULL &&
          rightHalf.top != NULL) {
     // see which first element to select, and remove it
@@ -776,7 +776,7 @@ void testSorting()
       numItems = rand()%ITEMS;
       loopj(numItems) {
         void *toInsert = (void*)( (size_t)(rand()%ITEMS) * 4 );
-	list1.prepend(toInsert);
+        list1.prepend(toInsert);
         list3.insertSorted(toInsert, VoidList::pointerAddressDiff);
       }
     } while (list1.isSorted(VoidList::pointerAddressDiff));
@@ -831,10 +831,10 @@ void entry()
 
     // test simple modifiers and info
     list.append(c);     PRINT(list);   // c
-    list.prepend(b);   	PRINT(list);   // b c
-    list.append(d);	PRINT(list);   // b c d
-    list.prepend(a);	PRINT(list);   // a b c d
-    list.removeAt(2);	PRINT(list);   // a b d
+    list.prepend(b);    PRINT(list);   // b c
+    list.append(d);     PRINT(list);   // b c d
+    list.prepend(a);    PRINT(list);   // a b c d
+    list.removeAt(2);   PRINT(list);   // a b d
 
     xassert( list.count() == 3 &&
              !list.isEmpty() &&
@@ -852,12 +852,12 @@ void entry()
     {
       VoidListMutator mut(list);
       mut.adv();
-	// now it's pointing at b
+        // now it's pointing at b
       mut.insertAfter(c);
-	// now list is (a b c d) and mut points at b still
+        // now list is (a b c d) and mut points at b still
       verifySorted(list);
       mut.remove();
-	// now list is (a c d) and mut points at c
+        // now list is (a c d) and mut points at c
       xassert(mut.data() == c);
 
       // copy the mutator
@@ -945,4 +945,3 @@ void entry()
 USUAL_MAIN
 
 #endif // NDEBUG
-

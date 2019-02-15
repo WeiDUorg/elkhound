@@ -86,4 +86,3 @@ void defaultWarningPrinter(WarnLevel /*level*/, char const *message)
 // no test code because it is my judgment that bugs in this
 // module will be easily evident, and it is a very simple
 // module, so it isn't worth it to separately test
-

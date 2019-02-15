@@ -148,7 +148,7 @@ class VoidListMutator {
   friend class VoidListIter;
 
 protected:
-  VoidList &list; 	  // underlying list
+  VoidList &list;         // underlying list
   VoidNode *prev;         // (serf) previous node; NULL if at list's head
   VoidNode *current;      // (serf) node we're considered to be pointing at
 

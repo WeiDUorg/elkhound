@@ -110,8 +110,9 @@ void test4()
 void test5()
 {
   printf("----------- test5 -----------\n");
-  RCPtr<Foo> f = new Foo(3);
-  RCPtr<Foo> g = f;
+  RCPtr<Foo> f(new Foo(3));
+  RCPtr<Foo> g;
+  g = f;
   printFoo(f);
   g = NULL;
   printFoo(f);

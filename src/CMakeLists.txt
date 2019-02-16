@@ -10,8 +10,8 @@ set(CMAKE_C_FLAGS "-g3 -Wall -D__UNIX__ -fno-strict-aliasing")
 set(CMAKE_CXX_FLAGS "-g3 -Wall -fno-strict-aliasing")
 
 # Use debugging optimisation for Debug builds
-set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -Og -ginline-points")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Og -ginline-points")
+set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -Og")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Og")
 
 # Strip & disable debug for Release builds
 set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -s -DNDEBUG")

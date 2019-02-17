@@ -12,6 +12,7 @@
 #define __RCPTR_H
 
 #include "typ.h"      // NULL
+#include "xassert.h"
 
 #if 0
   #include <stdio.h>    // printf, temporary
@@ -27,7 +28,8 @@ private:    // data
 
 private:    // funcs
   void inc() { DBG("inc"); if (ptr) { ptr->incRefCt(); } }
-  void dec() { DBG("dec"); if (ptr) { ptr->decRefCt(); ptr=NULL; } }
+  void dec() { DBG("dec"); if (ptr) { ptr->decRefCt(); ptr=NULL; }
+    xassert(ptr == NULL); }
 
 public:     // funcs
   explicit RCPtr(T *p = NULL) : ptr(p) { DBG("ctor"); inc(); }

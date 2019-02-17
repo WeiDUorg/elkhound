@@ -21,6 +21,7 @@ target_compile_options(mlsstr PRIVATE -DTEST_MLSSTR)
 
 # link options
 target_link_libraries(mlsstr smbase ast)
+target_link_libraries(trcptr smbase)
 
 # add the tests
 add_test (NAME mlsstr COMMAND ./mlsstr)

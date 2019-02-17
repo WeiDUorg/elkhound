@@ -7,13 +7,10 @@
 #define PTREENODE_H
 
 #include <stddef.h>     // NULL
+#include <stdint.h>     // uintmax_t
 #include <iostream>     // std::ostream
 
-// for storing counts of parse trees; I try to make the code work for
-// either 'int' or 'double' in this spot (e.g. I assign 0 to it
-// instead of 0.0), even though 'int' overflows quickly for the highly
-// ambiguous grammars
-typedef double TreeCount;
+typedef uintmax_t TreeCount;
 
 class PTreeNode {
 public:    // types

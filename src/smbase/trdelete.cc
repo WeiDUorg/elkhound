@@ -95,6 +95,7 @@ int main()
 
   Foo *f = new Foo;
   f->x = 5;
+  printf("member of pointer %p was assigned value %d\n", f, f->x);
   delete f;
   if (f->x == 5) {
     printf("trashing-delete failed\n");
@@ -103,6 +104,7 @@ int main()
 
   Bar *b = new Bar;
   b->x = 7;
+  printf("member of pointer %p was assigned value %d\n", b, b->x);
   delete b;
   if ((unsigned)b->x == 0xAAAAAAAAu) {    // did it trash it anyway?
     printf("non-trashing-delete failed\n");

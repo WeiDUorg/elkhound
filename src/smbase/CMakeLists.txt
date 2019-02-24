@@ -44,6 +44,3 @@ add_library(smbase STATIC
     vptrmap.cc
     warn.cpp
 )
-
-# extra compile options
-target_compile_options(smbase PRIVATE -Wno-maybe-uninitialized)

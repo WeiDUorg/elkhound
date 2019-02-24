@@ -390,9 +390,6 @@ SourceLocManager::StaticLoc::~StaticLoc()
 // ----------------------- SourceLocManager -------------------
 int SourceLocManager::shortLineCount = 0;
 
-SourceLocManager *sourceLocManager = NULL;
-
-
 SourceLocManager::SourceLocManager()
   : files(),
     recent(NULL),
@@ -402,10 +399,6 @@ SourceLocManager::SourceLocManager()
     maxStaticLocs(100),
     useHashLines(true)
 {
-  if (!sourceLocManager) {
-    sourceLocManager = this;
-  }
-
   // slightly clever: treat SL_UNKNOWN as a static
   SourceLoc u = encodeStatic(StaticLoc("<noloc>", 0,1,1));
   xassert(u == SL_UNKNOWN);
@@ -419,9 +412,6 @@ SourceLocManager::SourceLocManager()
 
 SourceLocManager::~SourceLocManager()
 {
-  if (sourceLocManager == this) {
-    sourceLocManager = NULL;
-  }
 }
 
 
@@ -692,7 +682,7 @@ string SourceLocManager::getLCString(SourceLoc loc)
 
 string locToStr(SourceLoc sl)
 {
-  return sourceLocManager->getString(sl);
+  return SourceLocManager::instance()->getString(sl);
 }
 
 
@@ -704,7 +694,6 @@ string locToStr(SourceLoc sl)
 
 #include <stdlib.h>      // rand, exit, system
 
-SourceLocManager mgr;
 int longestLen=0;
 
 // given a location, decode it into line/col and then re-encode,
@@ -713,13 +702,14 @@ void testRoundTrip(SourceLoc loc)
 {
   char const *fname;
   int line, col;
-  mgr.decodeLineCol(loc, fname, line, col);
+  SourceLocManager::instance()->decodeLineCol(loc, fname, line, col);
 
   if (col > longestLen) {
     longestLen = col;
   }
 
-  SourceLoc loc2 = mgr.encodeLineCol(fname, line, col);
+  SourceLoc loc2 =
+    SourceLocManager::instance()->encodeLineCol(fname, line, col);
 
   xassert(loc == loc2);
 }
@@ -761,12 +751,12 @@ void testFile(char const *fname)
   }
 
   // get locations for the start and end
-  SourceLoc start = mgr.encodeOffset(fname, 0);
-  SourceLoc end = mgr.encodeOffset(fname, len-1);
+  SourceLoc start = SourceLocManager::instance()->encodeOffset(fname, 0);
+  SourceLoc end = SourceLocManager::instance()->encodeOffset(fname, len-1);
 
   // check expectations for start
-  xassert(mgr.getLine(start) == 1);
-  xassert(mgr.getCol(start) == 1);
+  xassert(SourceLocManager::instance()->getLine(start) == 1);
+  xassert(SourceLocManager::instance()->getCol(start) == 1);
 
   // test them
   testRoundTrip(start);
@@ -784,16 +774,17 @@ void testFile(char const *fname)
   // the char just beyond the end
   int i;
   for (i=0; i<=len; i++) {
-    SourceLoc loc = mgr.encodeOffset(fname, i);
+    SourceLoc loc = SourceLocManager::instance()->encodeOffset(fname, i);
     testRoundTrip(loc);
 
     bi[i].loc = loc;
-    mgr.decodeLineCol(loc, dummy, bi[i].line, bi[i].col);
+    SourceLocManager::instance()->decodeLineCol(loc, dummy, bi[i].line,
+                                                bi[i].col);
   }
 
   // backward sequential
   for (i=len; i>0; i--) {
-    SourceLoc loc = mgr.encodeOffset(fname, i);
+    SourceLoc loc = SourceLocManager::instance()->encodeOffset(fname, i);
     testRoundTrip(loc);
   }
 
@@ -805,13 +796,15 @@ void testFile(char const *fname)
     if (dir==0) {
       // test loc -> line/col map
       int line, col;
-      mgr.decodeLineCol(bi[j].loc, dummy, line, col);
+      SourceLocManager::instance()->decodeLineCol(bi[j].loc, dummy, line, col);
       xassert(line == bi[j].line);
       xassert(col == bi[j].col);
     }
     else {
       // test line/col -> loc map
-      SourceLoc loc = mgr.encodeLineCol(fname, bi[j].line, bi[j].col);
+      SourceLoc loc =
+        SourceLocManager::instance()->encodeLineCol(fname, bi[j].line,
+                                                    bi[j].col);
       xassert(loc == bi[j].loc);
     }
   }
@@ -825,7 +818,7 @@ void expect(SourceLoc loc, char const *expFname, int expLine, int expCol)
 {
   char const *fname;
   int line, col;
-  mgr.decodeLineCol(loc, fname, line, col);
+  SourceLocManager::instance()->decodeLineCol(loc, fname, line, col);
 
   if (0!=strcmp(fname, expFname) ||
       line != expLine ||
@@ -858,8 +851,10 @@ void testHashMap()
     xbase("failed to preprocess srcloc.cc");
   }
 
-  SourceLocManager::File *pp = mgr.getInternalFile("srcloc.tmp");
-  SourceLocManager::File *orig = mgr.getInternalFile("srcloc.cc");
+  SourceLocManager::File *pp =
+    SourceLocManager::instance()->getInternalFile("srcloc.tmp");
+  SourceLocManager::File *orig =
+    SourceLocManager::instance()->getInternalFile("srcloc.cc");
 
   // read srcloc.tmp and install the hash maps
   int expanderLine=0;
@@ -898,20 +893,23 @@ void testHashMap()
   // first line in the orig src
   // update: this doesn't work with all preprocessors, and I'm
   // confident in the implementation now, so I'll turn this off
-  //SourceLoc lineTwo = mgr.encodeLineCol("srcloc.tmp", 2, 1);
+  //SourceLoc lineTwo =
+  //  SourceLocManager::instance()->encodeLineCol("srcloc.tmp", 2, 1);
   //expect(lineTwo, "srcloc.cc", 1,1);
 
   // print decodes of first several lines (including those that
   // are technically undefined because they occur on #line lines)
   int ppLine;
   for (ppLine = 1; ppLine < 10; ppLine++) {
-    SourceLoc loc = mgr.encodeLineCol("srcloc.tmp", ppLine, 1);
+    SourceLoc loc =
+      SourceLocManager::instance()->encodeLineCol("srcloc.tmp", ppLine, 1);
     std::cout << "ppLine " << ppLine << ": " << toString(loc) << std::endl;
   }
 
   // similar for last few lines
   for (ppLine = pp->numLines - 4; ppLine <= pp->numLines; ppLine++) {
-    SourceLoc loc = mgr.encodeLineCol("srcloc.tmp", ppLine, 1);
+    SourceLoc loc =
+      SourceLocManager::instance()->encodeLineCol("srcloc.tmp", ppLine, 1);
     std::cout << "ppLine " << ppLine << ": " << toString(loc) << std::endl;
   }
 
@@ -921,7 +919,9 @@ void testHashMap()
     exit(2);
   }
   else {
-    SourceLoc loc = mgr.encodeLineCol("srcloc.tmp", expanderLine, 1);
+    SourceLoc loc =
+      SourceLocManager::instance()->encodeLineCol("srcloc.tmp",
+                                                  expanderLine, 1);
     std::cout << "expander column 1: " << toString(loc) << std::endl;
 
     // in the pp file, I can advance the expander horizontally a long ways;
@@ -930,14 +930,16 @@ void testHashMap()
 
     char const *fname;
     int offset;
-    mgr.decodeOffset(loc, fname, offset);
-    std::cout << "expander column 21: " << fname << ", offset " << offset << std::endl;
+    SourceLocManager::instance()->decodeOffset(loc, fname, offset);
+    std::cout << "expander column 21: " << fname << ", offset " << offset
+              << std::endl;
     xassert(0==strcmp(fname, "srcloc.cc"));
 
     // map that to line/col, which should show the truncation
     int line, col;
     orig->charToLineCol(offset, line, col);
-    std::cout << "expander column 21: " << locString(fname, line, col) << std::endl;
+    std::cout << "expander column 21: " << locString(fname, line, col)
+              << std::endl;
     if (col != 9 && col != 10) {
       // 9 is for LF line endings, 10 for CRLF
       std::cout << "expected column 9 or 10!\n";
@@ -954,7 +956,7 @@ void entry(int argc, char ** /*argv*/)
 
   if (argc >= 2) {
     // set maxStaticLocs low to test the warning
-    mgr.maxStaticLocs = 1;
+    SourceLocManager::instance()->maxStaticLocs = 1;
   }
 
   // test my source code

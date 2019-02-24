@@ -115,11 +115,13 @@ private:     // funcs
 
   // called to advance the column count
   void advCol(int n)
-    { fileState.loc = sourceLocManager->advCol(fileState.loc, n); }
+    { fileState.loc =
+        SourceLocManager::instance()->advCol(fileState.loc, n); }
 
   // called when a newline is encountered
   void newLine()
-    { fileState.loc = sourceLocManager->advLine(fileState.loc); }
+    { fileState.loc =
+        SourceLocManager::instance()->advLine(fileState.loc); }
 
   // adds a string with only the specified # of chars; writes (but
   // then restores) a null terminator if necessary, so 'str' isn't const
@@ -167,11 +169,11 @@ public:      // funcs
 
   // info about location of current token
   char const *curFname() const
-    { return sourceLocManager->getFile(tokenStartLoc); }
+    { return SourceLocManager::instance()->getFile(tokenStartLoc); }
   int curLine() const
-    { return sourceLocManager->getLine(tokenStartLoc); }
+    { return SourceLocManager::instance()->getLine(tokenStartLoc); }
   int curCol() const
-    { return sourceLocManager->getCol(tokenStartLoc); }
+    { return SourceLocManager::instance()->getCol(tokenStartLoc); }
   SourceLoc curLoc() const { return tokenStartLoc; }
   string curLocStr() const;    // string with file/line/col
 

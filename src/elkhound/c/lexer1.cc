@@ -53,7 +53,7 @@ void Lexer1Token::print() const
 {
   char const *fname;
   int line, col;
-  sourceLocManager->decodeLineCol(loc, fname, line, col);
+  SourceLocManager::instance()->decodeLineCol(loc, fname, line, col);
 
   printf("[L1] Token at line %d, col %d: %s \"%s\"\n",
          line, col, l1Tok2String(type),
@@ -64,7 +64,7 @@ void Lexer1Token::print() const
 // -------------------- Lexer1 -----------------------------
 Lexer1::Lexer1(char const *fname)
   : allowMultilineStrings(true),    // GNU extension
-    loc(sourceLocManager->encodeBegin(fname)),
+    loc(SourceLocManager::instance()->encodeBegin(fname)),
     errors(0),
     tokens(),
     tokensMut(tokens)
@@ -81,7 +81,7 @@ void Lexer1::error(char const *msg)
 {
   char const *fname;
   int line, col;
-  sourceLocManager->decodeLineCol(loc, fname, line, col);
+  SourceLocManager::instance()->decodeLineCol(loc, fname, line, col);
 
   printf("[L1] Error at line %d, col %d: %s\n", line, col, msg);
   errors++;
@@ -107,7 +107,7 @@ void Lexer1::emit(Lexer1TokenType toktype, char const *tokenText, int length)
   tokensMut.append(tok);
 
   // update line and column counters
-  loc = sourceLocManager->advText(loc, tokenText, length);
+  loc = SourceLocManager::instance()->advText(loc, tokenText, length);
 }
 
 

@@ -40,7 +40,7 @@ void GrammarLexer::AltReportError::reportWarning(rostring msg)
 
 // ----------------- GrammarLexer::FileState --------------------
 GrammarLexer::FileState::FileState(rostring filename, std::istream *src)
-  : loc(sourceLocManager->encodeBegin(toCStr(filename))),
+  : loc(SourceLocManager::instance()->encodeBegin(toCStr(filename))),
     source(src),
     bufstate(NULL)
 {}
@@ -256,7 +256,7 @@ void GrammarLexer::printWarning(SourceLoc loc, rostring msg)
 void GrammarLexer::errorUnterminatedComment()
 {
   err(stringc << "unterminated comment, beginning on line " //<< commentStartLine);
-              << sourceLocManager->getLine(tokenStartLoc));
+      << SourceLocManager::instance()->getLine(tokenStartLoc));
 }
 
 void GrammarLexer::errorMalformedInclude()
@@ -297,7 +297,7 @@ void GrammarLexer::recursivelyProcess(rostring fname, std::istream *source)
 void GrammarLexer::popRecursiveFile()
 {
   trace("lex") << "done processing " <<
-    sourceLocManager->getFile(fileState.loc) << std::endl;
+    SourceLocManager::instance()->getFile(fileState.loc) << std::endl;
 
   // among other things, this prevents us from accidentally deleting
   // flex's first buffer (which it presumably takes care of) or
@@ -332,7 +332,6 @@ bool isGramlexEmbed(int code);
 
 int main(int argc)
 {
-  SourceLocManager mgr;
   GrammarLexer lexer(isGramlexEmbed);
   traceAddSys("lex");
 

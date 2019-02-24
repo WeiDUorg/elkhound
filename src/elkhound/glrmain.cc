@@ -25,7 +25,6 @@ void doit(int argc, char **argv)
   traceAddSys("progress");
   //traceAddSys("parse-tree");
 
-  SourceLocManager mgr;
   SemanticValue treeTop;
   CCLang lang;
   ParseTreeAndTokens tree(lang, treeTop);

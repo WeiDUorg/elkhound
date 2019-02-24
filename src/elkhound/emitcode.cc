@@ -92,7 +92,7 @@ string lineDirective(SourceLoc loc)
 {
   char const *fname;
   int line, col;
-  sourceLocManager->decodeLineCol(loc, fname, line, col);
+  SourceLocManager::instance()->decodeLineCol(loc, fname, line, col);
 
   return stringc << hashLine() << line << " \"" << fname << "\"\n";
 }

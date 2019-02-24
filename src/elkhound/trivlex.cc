@@ -12,7 +12,7 @@ void trivialLexer(char const *fname, Lexer2 &dest)
   if (!fp) {
     xsyserror("open", fname);
   }
-  SourceLoc loc = sourceLocManager->encodeBegin(fname);
+  SourceLoc loc = SourceLocManager::instance()->encodeBegin(fname);
 
   int ch;
   while ((ch = fgetc(fp)) != EOF) {
@@ -23,7 +23,7 @@ void trivialLexer(char const *fname, Lexer2 &dest)
     dest.addToken(tok);
 
     char aChar = ch;
-    loc = sourceLocManager->advText(loc, &aChar, 1);
+    loc = SourceLocManager::instance()->advText(loc, &aChar, 1);
   }
   dest.addEOFToken();
 }

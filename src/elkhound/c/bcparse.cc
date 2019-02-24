@@ -123,8 +123,6 @@ int main(int argc, char *argv[])
 
   traceAddSys("progress");
 
-  SourceLocManager mgr;
-
   traceProgress() << "lexical analysis stage 1...\n";
   Lexer1 lexer1(inputFname);
   {

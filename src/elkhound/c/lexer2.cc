@@ -751,8 +751,6 @@ Lexer2Token const *yylval = NULL;
 
 int main(int argc, char **argv)
 {
-  SourceLocManager mgr;
-
   if (argc > 1 && 0==strcmp(argv[1], "-bison")) {
     printBisonTokenDecls(true /*spellings*/);
     return 0;

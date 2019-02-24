@@ -61,7 +61,7 @@ void fromXml_double(double &x, rostring str) {
 
 
 string toXml_SourceLoc(SourceLoc loc) {
-  return sourceLocManager->getString(loc);
+  return SourceLocManager::instance()->getString(loc);
 }
 
 void fromXml_SourceLoc(SourceLoc &loc, rostring str) {

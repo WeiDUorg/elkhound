@@ -191,7 +191,7 @@ string stmtLoc(Statement const *s)
 {
   char const *fname;
   int line, col;
-  sourceLocManager->decodeLineCol(s->loc, fname, line, col);
+  SourceLocManager::instance()->decodeLineCol(s->loc, fname, line, col);
 
   return stringc << line << ":" << col;
 }

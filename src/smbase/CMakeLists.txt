@@ -22,7 +22,6 @@ add_library(smbase STATIC
     hashtbl.cc
     malloc_stub.c
     missing.cpp
-    mypopen.c
     mysig.cc
     nonport.cpp
     point.cc

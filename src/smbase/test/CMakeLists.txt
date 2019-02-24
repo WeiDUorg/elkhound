@@ -20,7 +20,6 @@ project(trdelete)
 project(bflatten)
 project(mysig)
 project(testmalloc)
-project(mypopen)
 project(tobjpool)
 project(cycles)
 project(crc)
@@ -121,11 +120,6 @@ add_executable(testmalloc
     ../testmalloc.cc
 )
 
-# files for mypopen
-add_executable(mypopen
-    ../mypopen.c
-)
-
 # files for tobjpool
 add_executable(tobjpool
     ../tobjpool.cc
@@ -206,7 +200,6 @@ target_compile_options(strhash PRIVATE -DTEST_STRHASH)
 target_compile_options(trdelete PRIVATE -DTEST_TRDELETE)
 target_compile_options(bflatten PRIVATE -DTEST_BFLATTEN)
 target_compile_options(mysig PRIVATE -DTEST_MYSIG)
-target_compile_options(mypopen PRIVATE -DTEST_MYPOPEN)
 target_compile_options(cycles PRIVATE -DTEST_CYCLES)
 target_compile_options(crc PRIVATE -DTEST_CRC)
 target_compile_options(srcloc PRIVATE -DTEST_SRCLOC)
@@ -264,7 +257,6 @@ add_test(NAME trdelete COMMAND ./trdelete)
 add_test(NAME bflatten COMMAND ./bflatten)
 add_test(NAME mysig COMMAND ./mysig)
 add_test(NAME testmalloc COMMAND ./testmalloc)
-add_test(NAME mypopen COMMAND ./mypopen)
 add_test(NAME tobjpool COMMAND ./tobjpool)
 add_test(NAME cycles COMMAND ./cycles)
 add_test(NAME crc COMMAND ./crc)

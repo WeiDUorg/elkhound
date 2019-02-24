@@ -9,7 +9,6 @@ add_library(smbase STATIC
     bflatten.cc
     bit2d.cc
     bitarray.cc
-    boxprint.cc
     breaker.cpp
     crc.cpp
     cycles.c
@@ -21,11 +20,9 @@ add_library(smbase STATIC
     hashline.cc
     hashtbl.cc
     malloc_stub.c
-    missing.cpp
     mysig.cc
     nonport.cpp
     point.cc
-    smregexp.cc
     srcloc.cc
     str.cpp
     strdict.cc
@@ -37,9 +34,7 @@ add_library(smbase STATIC
     syserr.cpp
     trace.cc
     trdelete.cc
-    unixutil.c
     vdtllist.cc
     voidlist.cc
     vptrmap.cc
-    warn.cpp
 )

@@ -26,10 +26,7 @@ project(crc)
 project(srcloc)
 project(hashline)
 project(gprintf)
-project(smregexp)
 project(vptrmap)
-project(boxprint)
-project(tarrayqueue)
 project(testarray)
 project(autofile)
 project(bitarray)
@@ -150,25 +147,9 @@ add_executable(gprintf
     ../gprintf.c
 )
 
-# files for smregexp
-add_executable(smregexp
-    ../smregexp.cc
-)
-
 # files for vptrmap
 add_executable(vptrmap
     ../vptrmap.cc
-)
-
-
-# files for boxprint
-add_executable(boxprint
-    ../boxprint.cc
-)
-
-# files for tarrayqueue
-add_executable(tarrayqueue
-    ../tarrayqueue.cc
 )
 
 # files for testarray
@@ -205,9 +186,7 @@ target_compile_options(crc PRIVATE -DTEST_CRC)
 target_compile_options(srcloc PRIVATE -DTEST_SRCLOC)
 target_compile_options(hashline PRIVATE -DTEST_HASHLINE)
 target_compile_options(gprintf PRIVATE -DTEST_GPRINTF)
-target_compile_options(smregexp PRIVATE -DTEST_SMREGEXP)
 target_compile_options(vptrmap PRIVATE -DTEST_VPTRMAP)
-target_compile_options(boxprint PRIVATE -DTEST_BOXPRINT)
 target_compile_options(autofile PRIVATE -DTEST_AUTOFILE)
 target_compile_options(bitarray PRIVATE -DTEST_BITARRAY)
 
@@ -231,10 +210,7 @@ target_link_libraries(testmalloc smbase)
 target_link_libraries(tobjpool smbase)
 target_link_libraries(srcloc smbase)
 target_link_libraries(hashline smbase)
-target_link_libraries(smregexp smbase)
 target_link_libraries(vptrmap smbase)
-target_link_libraries(boxprint smbase)
-target_link_libraries(tarrayqueue smbase)
 target_link_libraries(testarray smbase)
 target_link_libraries(autofile smbase)
 target_link_libraries(bitarray smbase)
@@ -264,10 +240,7 @@ add_test(NAME crc COMMAND ./crc)
 add_test(NAME srcloc COMMAND ${CMAKE_CURRENT_BINARY_DIR}/srcloc WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../)
 add_test(NAME hashline COMMAND ./hashline)
 add_test(NAME gprintf COMMAND ./gprintf)
-add_test(NAME smregexp COMMAND ./smregexp)
 add_test(NAME vptrmap COMMAND ./vptrmap)
-add_test(NAME boxprint COMMAND ./boxprint)
-add_test(NAME tarrayqueue COMMAND ./tarrayqueue)
 add_test(NAME testarray COMMAND ./testarray)
 add_test(NAME autofile COMMAND ./autofile)
 add_test(NAME bitarray COMMAND ./bitarray)

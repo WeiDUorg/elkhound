@@ -1,6 +1,5 @@
 // testarray.cc
 // test the array.h module
-// based on tarrayqueue.cc
 
 #include "array.h"     // module to test
 #include "objlist.h"         // ObjList

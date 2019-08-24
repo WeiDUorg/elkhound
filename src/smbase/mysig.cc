@@ -182,7 +182,7 @@ int main(int argc, char **argv)
     //printf("I'm pid %d waiting to be killed...\n", getpid());
     //sleep(10);
     printf("about to deliberately cause a segfault ...\n");
-    *((int*)0) = 0;    // segfault!
+    *((volatile int*)0) = 0;    // segfault!
 
     printf("didn't segfault??\n");
     return 2;

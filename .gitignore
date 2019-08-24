@@ -5,7 +5,6 @@
 *.o
 *.a
 *.d
-*.tmp
 *.output
 *.exe
 *.gen.*

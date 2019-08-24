@@ -236,11 +236,19 @@ add_test(NAME testmalloc COMMAND ./testmalloc)
 add_test(NAME tobjpool COMMAND ./tobjpool)
 add_test(NAME cycles COMMAND ./cycles)
 add_test(NAME crc COMMAND ./crc)
-# set WORKING_DIRECTORY because it needs srcloc.test.cc and srcloc.test2.cc
-add_test(NAME srcloc COMMAND ${CMAKE_CURRENT_BINARY_DIR}/srcloc WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../)
+add_test(NAME srcloc COMMAND ./srcloc)
 add_test(NAME hashline COMMAND ./hashline)
 add_test(NAME gprintf COMMAND ./gprintf)
 add_test(NAME vptrmap COMMAND ./vptrmap)
 add_test(NAME testarray COMMAND ./testarray)
 add_test(NAME autofile COMMAND ./autofile)
 add_test(NAME bitarray COMMAND ./bitarray)
+
+# dependencies for srcloc test
+add_custom_command(TARGET srcloc POST_BUILD
+  COMMAND ${CMAKE_C_COMPILER} -E -DTEST_SRCLOC srcloc.test.cc >${CMAKE_CURRENT_BINARY_DIR}/srcloc.tmp
+  COMMAND ${CMAKE_COMMAND} -E copy srcloc.cc ${CMAKE_CURRENT_BINARY_DIR}/srcloc.cc
+  COMMAND ${CMAKE_COMMAND} -E copy srcloc.h ${CMAKE_CURRENT_BINARY_DIR}/srcloc.h
+  COMMAND ${CMAKE_COMMAND} -E copy srcloc.test.cc ${CMAKE_CURRENT_BINARY_DIR}/srcloc.test.cc
+  COMMAND ${CMAKE_COMMAND} -E copy srcloc.test2.cc ${CMAKE_CURRENT_BINARY_DIR}/srcloc.test2.cc
+  WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/../)

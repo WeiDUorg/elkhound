@@ -9,8 +9,9 @@ OCaml or C++. It was written by Scott McPeak and is licensed under
 Elkhound is built with CMake and a C/C++ toolchain.
 
 Elkhound has been tested and builds on what can vaguely be described
-as contemporary x86_64 and x86 GNU/Linux systems and Cygwin. Status on
-other systems and in other environments is not known.
+as contemporary x86_64 and x86 GNU/Linux systems and Cygwin. It should
+also build on contemporary macOS. Status on other systems and in other
+environments is not known.
 
 Dependencies:
 - Flex

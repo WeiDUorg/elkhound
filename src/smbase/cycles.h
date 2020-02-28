@@ -19,6 +19,9 @@ void getCycles(unsigned *lowp, unsigned *highp);
 unsigned long long getCycles_ll(void);
 #endif
 
+#ifdef _MSC_VER
+unsigned long long getCycles_ll(void);
+#endif
 
 #ifdef __cplusplus
 }

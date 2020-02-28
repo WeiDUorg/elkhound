@@ -4,18 +4,41 @@
 # Minimum CMAKE version
 cmake_minimum_required(VERSION 3.0)
 
-# Global C flags
-set(CMAKE_C_FLAGS "-g3 -Wall -D__UNIX__ -fno-strict-aliasing")
-# Global C++ flags
-set(CMAKE_CXX_FLAGS "-g3 -Wall -fno-strict-aliasing")
+mark_as_advanced(
+    CLEAR
+    BISON_EXECUTABLE
+)
 
-# Use debugging optimisation for Debug builds
-set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -Og")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Og")
+find_package(BISON REQUIRED)
 
-# Strip & disable debug for Release builds
-set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DNDEBUG")
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DNDEBUG")
+mark_as_advanced(
+    CLEAR
+    FLEX_EXECUTABLE
+    FLEX_INCLUDE_DIR
+)
+
+find_package(FLEX REQUIRED)
+
+if(NOT MSVC)
+    # Global C flags
+    set(CMAKE_C_FLAGS "-g3 -Wall -D__UNIX__ -fno-strict-aliasing")
+    # Global C++ flags
+    set(CMAKE_CXX_FLAGS "-g3 -Wall -fno-strict-aliasing")
+
+    # Use debugging optimisation for Debug builds
+    set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -Og")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Og")
+
+    # Strip & disable debug for Release builds
+    set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DNDEBUG")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DNDEBUG")
+else()
+    set(CMAKE_C_FLAGS "/W4")
+    set(CMAKE_CXX_FLAGS "/W4 /EHsc /D_CRT_SECURE_NO_WARNINGS=1 /DYY_NO_UNISTD_H=1")
+
+    set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS} /DNDEBUG")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} /DNDEBUG")
+endif()
 
 # Global include directories
 INCLUDE_DIRECTORIES(ast smbase elkhound elkhound/c)
@@ -23,8 +46,10 @@ INCLUDE_DIRECTORIES(ast smbase elkhound elkhound/c)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Option(s)
-option(EXTRAS "Compile extra stuff(examples, cparse, etc)" ON)
-option(OCAML "Run OCaml tests" ON)
+if (NOT MSVC)
+    option(EXTRAS "Compile extra stuff(examples, cparse, etc)" ON)
+    option(OCAML "Run OCaml tests" ON)
+endif()
 
 # set variables
 set(AST_DIR         ${CMAKE_CURRENT_BINARY_DIR}/ast)
@@ -86,3 +111,4 @@ if(BUILD_TESTING)
         add_subdirectory(elkhound/ocaml)
     endif(OCAML)
 endif(BUILD_TESTING)
+

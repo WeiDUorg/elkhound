@@ -2,7 +2,9 @@
 // test malloc, test heap walk, etc.
 
 #include <stdio.h>     // printf
-#include <unistd.h>    // write
+#ifndef _MSC_VER
+  #include <unistd.h>    // write
+#endif
 #include <string.h>    // strlen
 #include <stdlib.h>    // malloc
 
@@ -26,8 +28,13 @@ HeapWalkOpts deallocWalker(void *block, int size)
   return HW_GO;
 }
 
-
-#define MSGOUT(str) write(1, str, strlen(str))
+#ifndef _MSC_VER
+  #define MSGOUT(str) write(1, str, strlen(str))
+#else
+  void MSGOUT(char * str) {
+    printf("%s", str);
+  }
+#endif
 
 void heapWalk(char const *context)
 {
@@ -76,6 +83,15 @@ void test1()
   TRACE(free(p4));
 }
 
+#ifdef _MSC_VER
+unsigned int seed = 2;
+
+unsigned int random()
+{
+	seed = 1664525 * seed + 1013904223;
+	return seed;
+}
+#endif
 
 void test2()
 {

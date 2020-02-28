@@ -9,19 +9,21 @@ project(elkhound)
 # generate grampar.tab.{cpp,h}
 add_custom_command(
     OUTPUT grampar.tab.cpp grampar.tab.h
-    COMMAND bison -d ${CMAKE_CURRENT_SOURCE_DIR}/grampar.y && mv grampar.tab.c grampar.tab.cpp
+    COMMAND ${BISON_EXECUTABLE} -d ${CMAKE_CURRENT_SOURCE_DIR}/grampar.y
+    COMMAND ${CMAKE_COMMAND} -E copy grampar.tab.c grampar.tab.cpp
+    COMMAND ${CMAKE_COMMAND} -E remove agrampar.tab.c
 )
 
 # generate gramlex.yy.cc
 add_custom_command(
     OUTPUT gramlex.cc
-    COMMAND flex -ogramlex.cc ${CMAKE_CURRENT_SOURCE_DIR}/gramlex.lex
+    COMMAND ${FLEX_EXECUTABLE} -ogramlex.cc ${CMAKE_CURRENT_SOURCE_DIR}/gramlex.lex
 )
 
 # generate gramast.ast.gen.{cc,h}
 add_custom_command(
     OUTPUT gramast.ast.gen.cc gramast.ast.gen.h
-    COMMAND ${AST_DIR}/astgen -ogramast.ast.gen ${CMAKE_CURRENT_SOURCE_DIR}/gramast.ast
+    COMMAND astgen -ogramast.ast.gen ${CMAKE_CURRENT_SOURCE_DIR}/gramast.ast
     DEPENDS astgen
 )
 
@@ -60,3 +62,5 @@ target_link_libraries(libelkhound smbase ast)
 
 # disable lib prefix for libelkhound
 SET_TARGET_PROPERTIES(libelkhound PROPERTIES PREFIX "")
+
+include_directories(${FLEX_INCLUDE_DIR})

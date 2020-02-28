@@ -11,8 +11,11 @@
 #include <iostream>         // ostream << char*
 
 #include <assert.h>         // assert
-#include <unistd.h>         // write
-
+#ifndef _MSC_VER
+  #include <unistd.h>         // write
+#else
+  #include <windows.h>
+#endif
 #include "xassert.h"        // xassert
 #include "ckheap.h"         // checkHeapNode
 #include "flatten.h"        // Flatten
@@ -452,7 +455,13 @@ string vstringf(char const *format, va_list args)
     static char const msg[] =
       "fatal error: vnprintf failed to provide a conservative estimate,\n"
       "memory is most likely corrupted\n";
-    write(2 /*stderr*/, msg, strlen(msg));
+	#ifdef _MSC_VER
+	  HANDLE stderrH = GetStdHandle(STD_ERROR_HANDLE);
+	  DWORD dontCare1;
+	  WriteFile(stderrH, msg, strlen(msg), &dontCare1, NULL);
+	#else
+      write(2 /*stderr*/, msg, strlen(msg));
+	#endif
     abort();
   }
 

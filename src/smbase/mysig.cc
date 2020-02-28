@@ -5,7 +5,9 @@
 
 #include <string.h>     // strsignal
 #include <stdlib.h>     // exit
-#include <unistd.h>     // sleep
+#ifndef _MSC_VER
+  #include <unistd.h>     // sleep
+#endif
 #include <stdio.h>      // printf
 
 // needed on Solaris; is __sun__ a good way to detect that?
@@ -13,7 +15,7 @@
   #include <siginfo.h>
 #endif
 
-#ifndef __CYGWIN__      // everything here is for *not* cygwin
+#if !defined(__CYGWIN__) && !defined(_MSC_VER)      // everything here is for *not* cygwin, MSVC++
 
 void setHandler(int signum, SignalHandler handler)
 {
@@ -198,7 +200,7 @@ int main(int argc, char **argv)
 #endif // TEST_MYSIG
 
 
-#else   // cygwin -- just stubs so it compiles
+#else   // cygwin, MSVC++ -- just stubs so it compiles
 void setHandler(int, SignalHandler) {}
 void printHandler(int) {}
 jmp_buf sane_state;

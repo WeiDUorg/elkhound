@@ -4,6 +4,10 @@
 #ifndef __CRC_H
 #define __CRC_H
 
-unsigned long crc32(unsigned char const *data, int length);
+#ifndef _MSC_VER
+  unsigned long crc32(unsigned char const *data, int length);
+#else
+  uint32_t crc32(unsigned char const *data, int length);
+#endif
 
 #endif // __CRC_H

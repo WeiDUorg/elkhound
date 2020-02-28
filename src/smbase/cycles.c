@@ -3,6 +3,10 @@
 
 #include "cycles.h"      // this module
 
+#ifdef _MSC_VER
+  #include <windows.h>
+#endif
+
 // -------------------- x86 -------------------------
 #if defined(__i386__)
 // use the 'rdtsc' (read time-stamp count) instruction
@@ -97,6 +101,16 @@ unsigned long long getCycles_ll()
 }
 #endif // __GNUC__
 
+#ifdef _MSC_VER
+unsigned long long getCycles_ll()
+{
+  LARGE_INTEGER result;
+  if (!QueryPerformanceCounter(&result)) {
+    abort();
+  }
+  return result.QuadPart;
+}
+#endif // _MSC_VER
 
 // ----------------------- test code ---------------------
 #ifdef TEST_CYCLES

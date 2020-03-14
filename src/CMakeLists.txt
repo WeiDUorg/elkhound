@@ -29,7 +29,7 @@ if(NOT MSVC)
     set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -Og")
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -Og")
 
-    # Strip & disable debug for Release builds
+    # Disable debug for Release builds
     set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DNDEBUG")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DNDEBUG")
 else()
@@ -111,4 +111,3 @@ if(BUILD_TESTING)
         add_subdirectory(elkhound/ocaml)
     endif(OCAML)
 endif(BUILD_TESTING)
-

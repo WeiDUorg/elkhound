@@ -3,6 +3,7 @@
 #
 # Minimum CMAKE version
 cmake_minimum_required(VERSION 3.0)
+project(elkhound)
 
 mark_as_advanced(
     CLEAR

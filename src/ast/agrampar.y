@@ -23,7 +23,7 @@
 
 /* ================== bison declarations =================== */
 // don't use globals
-%pure-parser
+%define api.pure
 %parse-param {void* parseParam}
 %lex-param {void* parseParam}
 

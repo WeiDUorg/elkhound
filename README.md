@@ -10,8 +10,10 @@ Elkhound is built with CMake and a C/C++ toolchain.
 
 Elkhound has been tested and builds on what can vaguely be described
 as contemporary x86_64 and x86 GNU/Linux systems and Cygwin. It should
-also build on contemporary macOS. Status on other systems and in other
-environments is not known.
+also build on contemporary macOS. Elkhound itself can be built with
+MSVC++, tested with CMake 3.17 and Visual Studio 2017, with options
+equivalent to `-DEXTRAS=OFF -DOCAML=OFF` (_vide infra_). Status on
+other systems and in other environments is not known.
 
 Dependencies:
 - Flex

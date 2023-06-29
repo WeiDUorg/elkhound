@@ -1,10 +1,12 @@
-# Elkhound
+Elkhound
+========
 
 Elkhound is a parser generator which emits GLR parsers, either in
 OCaml or C++. It was written by Scott McPeak and is licensed under
 3-clause BSD terms. See license.txt.
 
-## Building
+Building
+--------
 
 Elkhound is built with CMake and a C/C++ toolchain.
 
@@ -37,9 +39,10 @@ If you are building on Cygwin, you may want to add the following line
 to your .bashrc:\
 `export CMAKE_LEGACY_CYGWIN_WIN32=0`
 
-## Additional information
+Additional information
+----------------------
 
 [http://scottmcpeak.com/elkhound/](http://scottmcpeak.com/elkhound/)
 
 There is also a tutorial and other texts among the source files. Have
-a look at elkhound/index.html (some parts are out of date).
+a look at [src/elkhound/README.md](src/elkhound/README.md) (some parts are out of date).

@@ -8,7 +8,7 @@ project(lexer2)
 # generate lexer1yy.cc
 add_custom_command(
     OUTPUT lexer1yy.cc
-    COMMAND flex -olexer1yy.cc ${CMAKE_CURRENT_SOURCE_DIR}/lexer1.lex
+    COMMAND ${FLEX_EXECUTABLE} -olexer1yy.cc ${CMAKE_CURRENT_SOURCE_DIR}/lexer1.lex
 )
 
 # generate c.ast.gen.{cc,h}

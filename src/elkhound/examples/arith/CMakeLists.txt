@@ -13,7 +13,7 @@ add_custom_command(
 # generate arithyy.cc
 add_custom_command(
     OUTPUT arithyy.cc
-    COMMAND flex -oarithyy.cc ${CMAKE_CURRENT_SOURCE_DIR}/arith.lex
+    COMMAND ${FLEX_EXECUTABLE} -oarithyy.cc ${CMAKE_CURRENT_SOURCE_DIR}/arith.lex
 )
 
 # all the files for arith

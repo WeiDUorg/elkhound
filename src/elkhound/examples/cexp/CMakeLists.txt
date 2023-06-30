@@ -22,7 +22,7 @@ add_executable(cexp
     cexp3.gr.gen
     cexp3ast.ast.gen
     ../../glrmain.cc
-    cexp3mrg
+    cexp3mrg.cc
 )
 
 # link against elkhound, smbase, libcparse and ast

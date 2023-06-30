@@ -29,28 +29,28 @@ add_custom_command(
 
 # all the files for libelkhound
 add_library(libelkhound STATIC
-    cyctimer
-    glr
-    parsetables
-    useract
-    ptreenode
-    ptreeact
+    cyctimer.cc
+    glr.cc
+    parsetables.cc
+    useract.cc
+    ptreenode.cc
+    ptreeact.cc
 )
 
 # all the files for elkhound
 add_executable(elkhound
     grampar.tab.cpp
     gramanl.cc
-    asockind
-    grammar
-    emitcode
-    mlsstr
-    genml
-    gramast.ast.gen
+    asockind.cc
+    grammar.cc
+    emitcode.cc
+    mlsstr.cc
+    genml.cc
+    gramast.ast.gen.cc
     gramlex.cc
     grampar.cc
-    gramexpl
-    parsetables
+    gramexpl.cc
+    parsetables.cc
 )
 
 # extra compile options

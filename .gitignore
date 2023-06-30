@@ -10,4 +10,5 @@
 *.gen.*
 *.cmo
 *.cmi
+.vs
 TAGS

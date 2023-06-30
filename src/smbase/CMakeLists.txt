@@ -19,7 +19,6 @@ add_library(smbase STATIC
     growbuf.cc
     hashline.cc
     hashtbl.cc
-    malloc_stub.c
     mysig.cc
     nonport.cpp
     point.cc

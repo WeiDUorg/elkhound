@@ -19,7 +19,6 @@ project(strhash)
 project(trdelete)
 project(bflatten)
 project(mysig)
-project(testmalloc)
 project(tobjpool)
 project(cycles)
 project(crc)
@@ -112,11 +111,6 @@ add_executable(mysig
     ../mysig.cc
 )
 
-# files for testmalloc
-add_executable(testmalloc
-    ../testmalloc.cc
-)
-
 # files for tobjpool
 add_executable(tobjpool
     ../tobjpool.cc
@@ -206,7 +200,6 @@ target_link_libraries(strhash smbase)
 target_link_libraries(trdelete smbase)
 target_link_libraries(bflatten smbase)
 target_link_libraries(mysig smbase)
-target_link_libraries(testmalloc smbase)
 target_link_libraries(tobjpool smbase)
 target_link_libraries(srcloc smbase)
 target_link_libraries(hashline smbase)
@@ -232,7 +225,6 @@ add_test(NAME strhash COMMAND ./strhash)
 add_test(NAME trdelete COMMAND ./trdelete)
 add_test(NAME bflatten COMMAND ./bflatten)
 add_test(NAME mysig COMMAND ./mysig)
-add_test(NAME testmalloc COMMAND ./testmalloc)
 add_test(NAME tobjpool COMMAND ./tobjpool)
 add_test(NAME cycles COMMAND ./cycles)
 add_test(NAME crc COMMAND ./crc)

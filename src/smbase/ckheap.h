@@ -1,5 +1,6 @@
 // ckheap.h            see license.txt for copyright and terms of use
-// interface to check heap integrity, etc.
+// Hooks called by the rest of the code, to allow plugging in a heap
+// checker.
 
 #ifndef CKHEAP_H
 #define CKHEAP_H
@@ -9,21 +10,14 @@ extern "C" {
 #endif
 
 
-#ifdef __WIN32__
-  // don't want to try to get dlmalloc working...
-  #define checkHeapNode(n) /*nothing*/
-  #define malloc_stats() ((void)0)
-#else
-
-
-// check heap integrity, and fail an assertion if it's bad
+// Hook to check heap integrity, and fail an assertion if it's bad
 void checkHeap();
 
-// check that a given pointer is a valid allocated object;
+// Hook to check that a given pointer is a valid allocated object;
 // fail assertion if not
-void checkHeapNode(void *node);
+void checkHeapNode(void* node);
 
-// prints allocation statistics to stderr
+// Hook to print allocation statistics to stderr
 void malloc_stats();
 
 // count # of malloc/free calls in program
@@ -47,11 +41,19 @@ enum HeapWalkOpts {
 // (you can cause 'block' to be freed by returning HW_FREE)
 typedef enum HeapWalkOpts (*HeapWalkFn)(void *block, int size);
 
-// heap walk entry
+// Hook for a heap walk
 void walkMallocHeap(HeapWalkFn func);
 
+#ifndef ELK_USE_HEAP_CHECKER
 
-#endif // !__WIN32__
+inline void checkHeap() {}
+inline void checkHeapNode(void* node) { (void)node; }
+inline void malloc_stats() {}
+inline unsigned numMallocCalls() { return 0;  }
+inline unsigned numFreeCalls() { return 0; }
+inline void walkMallocHeap(HeapWalkFn func) { (void)func; }
+
+#endif // ELK_USE_HEAP_CHECKER
 
 #ifdef __cplusplus
 } // extern "C"

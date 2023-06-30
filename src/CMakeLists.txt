@@ -5,20 +5,23 @@
 cmake_minimum_required(VERSION 3.0)
 project(elkhound)
 
-mark_as_advanced(
-    CLEAR
-    BISON_EXECUTABLE
-)
+if(NOT DEFINED BISON_EXECUTABLE)
+    mark_as_advanced(
+        CLEAR
+        BISON_EXECUTABLE
+    )
 
-find_package(BISON REQUIRED)
+    find_package(BISON REQUIRED)
+endif()
 
-mark_as_advanced(
-    CLEAR
-    FLEX_EXECUTABLE
-    FLEX_INCLUDE_DIR
-)
-
-find_package(FLEX REQUIRED)
+if(NOT DEFINED FLEX_EXECUTABLE OR NOT DEFINED FLEX_INCLUDE_DIR)
+    mark_as_advanced(
+        CLEAR
+        FLEX_EXECUTABLE
+        FLEX_INCLUDE_DIR
+    )
+    find_package(FLEX REQUIRED)
+endif()
 
 if(NOT MSVC)
     # Global C flags

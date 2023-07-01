@@ -19,9 +19,13 @@ add_executable(sless
 # link against elkhound and smbase
 target_link_libraries(sless libelkhound smbase)
 
-if(BUILD_TESTING)
+find_package(Perl)
+
+if(BUILD_TESTING AND PERL_EXECUTABLE)
     add_test(
         NAME sless
-        COMMAND ${SCRIPTS_DIR}/test-pipe "if (a) fi (if aa fi) a aa aaa" ./sless
+        COMMAND ${PERL_EXECUTABLE} ${SCRIPTS_DIR}/test-pipe "if (a) fi (if aa fi) a aa aaa" ./sless
     )
-endif(BUILD_TESTING)
+elseif(NOT PERL_EXECUTABLE)
+    message(WARNING " * Skipping the sless tests: Perl not found")
+endif(BUILD_TESTING AND PERL_EXECUTABLE)

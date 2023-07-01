@@ -76,19 +76,23 @@ add_custom_target(ocaml_main ALL
 )
 
 # tests
-add_test(
-    NAME ocaml_main1
-    COMMAND ${SCRIPTS_DIR}/test-pipe "2+3" ./ocaml_main arith lr
-)
-add_test(
-    NAME ocaml_main2
-    COMMAND ${SCRIPTS_DIR}/test-pipe "2+3" ./ocaml_main arith glr
-)
-add_test(
-    NAME ocaml_main3
-    COMMAND ${SCRIPTS_DIR}/test-pipe "2+3" ./ocaml_main een glr
-)
-add_test(
-    NAME ocaml_main4
-    COMMAND ${SCRIPTS_DIR}/test-pipe "2+3+4" ./ocaml_main een glr ptree
-)
+if(BUILD_TESTING AND PERL_EXECUTABLE)
+    add_test(
+        NAME ocaml_main1
+        COMMAND ${PERL_EXECUTABLE} ${SCRIPTS_DIR}/test-pipe "2+3" ./ocaml_main arith lr
+    )
+    add_test(
+        NAME ocaml_main2
+        COMMAND ${PERL_EXECUTABLE} ${SCRIPTS_DIR}/test-pipe "2+3" ./ocaml_main arith glr
+    )
+    add_test(
+        NAME ocaml_main3
+        COMMAND ${PERL_EXECUTABLE} ${SCRIPTS_DIR}/test-pipe "2+3" ./ocaml_main een glr
+    )
+    add_test(
+        NAME ocaml_main4
+        COMMAND ${PERL_EXECUTABLE} ${SCRIPTS_DIR}/test-pipe "2+3+4" ./ocaml_main een glr ptree
+    )
+elseif(NOT PERL_EXECUTABLE)
+    message(WARNING " * Skipping the ocaml tests: Perl not found")
+endif()

@@ -1,16 +1,15 @@
-#!/usr/bin/env bash
-set -e
+#!/usr/bin/perl -w
 
-if [ ! "$1" ]
-then
-    echo "$0 data program"
-    exit 1
-fi
+if (@ARGV < 2) {
+  print(<<"EOF");
+usage: $0 data program ...
 
-pipe="$1"
+EOF
+  exit(1);
+}
 
-shift
-command="$@"
+my $data = shift @ARGV;
 
-cd "$PWD"
-echo "$pipe" | $command
+open my $fh => "| @ARGV" or die $!;
+print $fh $data;
+close $fh

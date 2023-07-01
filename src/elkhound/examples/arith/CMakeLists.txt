@@ -29,15 +29,19 @@ SET_SOURCE_FILES_PROPERTIES( arithyy.cc PROPERTIES COMPILE_FLAGS -Wno-sign-compa
 # link against elkhound and smbase
 target_link_libraries(arith libelkhound smbase)
 
-if(BUILD_TESTING)
+find_package(Perl)
+
+if(BUILD_TESTING AND PERL_EXECUTABLE)
     add_test(
         NAME arith1
-        COMMAND ${SCRIPTS_DIR}/test-pipe "3 + 4 * 5" ./arith
+        COMMAND ${PERL_EXECUTABLE} ${SCRIPTS_DIR}/test-pipe "3 + 4 * 5" ./arith
         DEPENDS arith
     )
     add_test(
         NAME arith2
-        COMMAND ${SCRIPTS_DIR}/test-pipe "3 + 4 * 5" ./arith printTree
+        COMMAND ${PERL_EXECUTABLE} ${SCRIPTS_DIR}/test-pipe "3 + 4 * 5" ./arith printTree
         DEPENDS arith
     )
-endif(BUILD_TESTING)
+elseif(NOT PERL_EXECUTABLE)
+    message(WARNING " * Skipping the arith1 and arith2 tests: Perl not found")
+endif(BUILD_TESTING AND PERL_EXECUTABLE)

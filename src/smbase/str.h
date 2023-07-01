@@ -17,6 +17,7 @@
 #include <iostream>      // istream, ostream
 #include <stdarg.h>      // va_list
 #include <string.h>      // strcmp, etc.
+#include <type_traits>
 
 class Flatten;           // flatten.h
 
@@ -274,6 +275,9 @@ public:
   // building a multi-line string; returns '*this'
   stringBuilder& indent(int amt);
 
+  enum class _disabled1 {};
+  enum class _disabled2 {};
+
   // sort of a mixture of Java compositing and C++ i/o strstream
   stringBuilder& operator << (rostring text) { return operator&=(text.c_str()); }
   stringBuilder& operator << (char const *text) { return operator&=(text); }
@@ -281,6 +285,8 @@ public:
   stringBuilder& operator << (unsigned char c) { return operator<<((char)c); }
   stringBuilder& operator << (long i);
   stringBuilder& operator << (unsigned long i);
+  stringBuilder& operator << (std::conditional_t <sizeof(intptr_t) == 8, intptr_t, _disabled1> i);
+  stringBuilder& operator << (std::conditional_t <sizeof(uintptr_t) == 8, uintptr_t, _disabled2> i);
   stringBuilder& operator << (int i) { return operator<<((long)i); }
   stringBuilder& operator << (unsigned i) { return operator<<((unsigned long)i); }
   stringBuilder& operator << (short i) { return operator<<((long)i); }

@@ -26,7 +26,7 @@ class ParseTables;         // parsetables.h
 //    to be owner pointers, but only in the sense that del() will be
 //    called.  It's up to the user to decide if del() actually does
 //    anything.
-typedef unsigned long SemanticValue;
+typedef uintptr_t SemanticValue;
 
 // name of a null sval; can't use "NULL" because of __null weirdness in gcc-3...
 #define NULL_SVAL 0

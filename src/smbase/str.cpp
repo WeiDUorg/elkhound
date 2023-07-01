@@ -9,6 +9,7 @@
 #include <ctype.h>          // isspace
 #include <string.h>         // strcmp
 #include <iostream>         // ostream << char*
+#include <inttypes.h>       // string printf formats
 
 #include <assert.h>         // assert
 #ifndef _MSC_VER
@@ -339,10 +340,15 @@ stringBuilder& stringBuilder::operator<< (char c)
     return *this << buf;                                 \
   }
 
+using intptr_type = std::conditional_t <sizeof(intptr_t) == 8, intptr_t, stringBuilder::_disabled1>;
+using uintptr_type = std::conditional_t <sizeof(uintptr_t) == 8, uintptr_t, stringBuilder::_disabled2>;
+
 MAKE_LSHIFT(long, "%ld")
 MAKE_LSHIFT(unsigned long, "%lu")
 MAKE_LSHIFT(double, "%g")
 MAKE_LSHIFT(void*, "%p")
+MAKE_LSHIFT(intptr_type, PRIiPTR)
+MAKE_LSHIFT(uintptr_type, PRIuPTR)
 
 #undef MAKE_LSHIFT
 

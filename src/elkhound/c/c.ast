@@ -230,12 +230,12 @@ verbatim {
 
   inline NextPtr makeNextPtr(Statement const *next, bool isContinue)
   {
-    return (NextPtr)((long)next | !!isContinue);
+    return (NextPtr)((intptr_t)next | !!isContinue);
   }
 
   inline Statement const *nextPtrStmt(NextPtr np)
   {
-    return (Statement const*)((long)np & ~1L);
+    return (Statement const*)((intptr_t)np & ~1L);
   }
 
   // unfortunately I don't have a good way to enforce the flow
@@ -250,7 +250,7 @@ verbatim {
   // the loop from scratch
   inline bool nextPtrContinue(NextPtr np)
   {
-    return (bool)((long)np & 1);
+    return (bool)((intptr_t)np & 1);
   }
 
   // prints like Statement::kindLocString, with a "(c)" appended

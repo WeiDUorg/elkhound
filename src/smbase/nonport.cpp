@@ -336,7 +336,7 @@ void applyToDirContents(char const *dirName,
     strcpy(buf, dirName);
     if (buf[strlen(buf)-1] != '\\') strcat(buf, "\\");
     strcat(buf, "*");
-    long handle = _findfirst(buf, &fb);
+    intptr_t handle = _findfirst(buf, &fb);
     delete buf;
     int done = (handle == -1);
     if (handle == -1 && errno != ENOENT) // ENOENT = no matching entries
@@ -843,7 +843,7 @@ void limitFileAccess(char const *fname)
       }
 #   else  // DOB: VC has a totally diff interface for this
       struct _finddata_t fb;
-      long handle = _findfirst("*", &fb);
+      intptr_t handle = _findfirst("*", &fb);
       int done = (handle == -1);
       while (!done) {
         if (!func(fb.name, extra)) {

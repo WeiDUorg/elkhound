@@ -24,7 +24,9 @@ add_executable(arith
 )
 
 # suppress -Wsign-compare for Flex-generated code
-SET_SOURCE_FILES_PROPERTIES( arithyy.cc PROPERTIES COMPILE_FLAGS -Wno-sign-compare )
+if(NOT MSVC)
+    SET_SOURCE_FILES_PROPERTIES( arithyy.cc PROPERTIES COMPILE_FLAGS -Wno-sign-compare )
+endif()
 
 # link against elkhound and smbase
 target_link_libraries(arith libelkhound smbase)

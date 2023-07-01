@@ -52,4 +52,4 @@ add_executable(astgen
 # link astgen against libast.a amd libsmbase.a
 target_link_libraries(astgen ast smbase)
 
-include_directories(${FLEX_INCLUDE_DIR})
+include_directories(${FLEX_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR})

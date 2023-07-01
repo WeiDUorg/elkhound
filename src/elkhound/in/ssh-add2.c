@@ -48,6 +48,9 @@ ssh-add.c
 #include "ssh1keydecode.h"
 #endif /* WITH_PGP */
 #include "sshdsprintf.h"
+#ifdef _WIN32
+#include <io.h>
+#endif
 
 #define SSH_DEBUG_MODULE "SshAdd"
 

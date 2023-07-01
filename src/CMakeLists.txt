@@ -50,8 +50,8 @@ INCLUDE_DIRECTORIES(ast smbase elkhound elkhound/c)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Option(s)
+option(EXTRAS "Compile extra stuff(examples, cparse, etc)" ON)
 if (NOT MSVC)
-    option(EXTRAS "Compile extra stuff(examples, cparse, etc)" ON)
     option(OCAML "Run OCaml tests" ON)
 endif()
 

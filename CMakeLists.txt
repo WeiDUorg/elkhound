@@ -10,5 +10,8 @@ if(MSVC)
     add_subdirectory(thirdparty/winflexbison)
 endif()
 
+if(BUILD_TESTING)
+    enable_testing()
+endif()
 
 add_subdirectory(src)

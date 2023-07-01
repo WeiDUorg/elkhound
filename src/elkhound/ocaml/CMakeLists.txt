@@ -3,16 +3,28 @@
 #
 project(ocaml_main)
 
+find_package(OCaml)
+
+if(NOT OCAMLFIND)
+    message(WARNING " * Skipping the ocaml tests: ocaml not found")
+    return()
+endif()
+
+find_program(OCAMLC_EXECUTABLE ocamlc HINTS "${OCAML_BINDIR}")
+find_program(OCAMLRUN_EXECUTABLE ocamlrun HINTS "${OCAML_BINDIR}")
+find_program(OCAMLLEX_EXECUTABLE ocamllex HINTS "${OCAML_BINDIR}")
+find_program(OCAMLYACC_EXECUTABLE ocamlyacc HINTS "${OCAML_BINDIR}")
+
 # generate ${CMAKE_CURRENT_BINARY_DIR}/lexer.ml
 add_custom_command(
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/lexer.ml
-    COMMAND ocamllex ${CMAKE_CURRENT_SOURCE_DIR}/lexer.mll -o lexer.ml
+    COMMAND ${OCAMLLEX_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/lexer.mll -o lexer.ml
 )
 
 # generate ${CMAKE_CURRENT_SOURCE_DIR}/oc_arith.ml{,i}
 add_custom_command(
     OUTPUT ${CMAKE_CURRENT_SOURCE_DIR}/oc_arith.ml ${CMAKE_CURRENT_SOURCE_DIR}/oc_arith.mli
-    COMMAND ocamlyacc ${CMAKE_CURRENT_SOURCE_DIR}/oc_arith.mly
+    COMMAND ${OCAMLYACC_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/oc_arith.mly
 )
 
 # generate ${CMAKE_CURRENT_BINARY_DIR}/arith.ml{,i}
@@ -39,13 +51,13 @@ set(OCAML_MAIN_FILES
     ${CMAKE_CURRENT_SOURCE_DIR}/ptreenode.ml
     ${CMAKE_CURRENT_SOURCE_DIR}/lexerint.ml
     ${CMAKE_CURRENT_SOURCE_DIR}/ptreeact.ml
-    
+
     # this is generated!
     ${CMAKE_CURRENT_BINARY_DIR}/lexer.ml
-    
+
     ${CMAKE_CURRENT_SOURCE_DIR}/lrparse.ml
     ${CMAKE_CURRENT_SOURCE_DIR}/objpool.ml
-    
+
     # this is generated!
     ${CMAKE_CURRENT_SOURCE_DIR}/oc_arith.mli
     ${CMAKE_CURRENT_SOURCE_DIR}/oc_arith.ml
@@ -53,7 +65,7 @@ set(OCAML_MAIN_FILES
     # this is generated!
     ${CMAKE_CURRENT_BINARY_DIR}/arith.mli
     ${CMAKE_CURRENT_BINARY_DIR}/arith.ml
-    
+
     # this is generated!
     ${CMAKE_CURRENT_BINARY_DIR}/een.mli
     ${CMAKE_CURRENT_BINARY_DIR}/een.ml
@@ -71,7 +83,7 @@ set(OCAMLC_FLAGS
 
 # Build ocaml_main
 add_custom_target(ocaml_main ALL
-    COMMAND ocamlc -o ${CMAKE_CURRENT_BINARY_DIR}/ocaml_main -g ${OCAML_MAIN_FILES} ${OCAMLC_FLAGS}
+    COMMAND ${OCAMLC_EXECUTABLE} -o ${CMAKE_CURRENT_BINARY_DIR}/ocaml_main -g ${OCAML_MAIN_FILES} ${OCAMLC_FLAGS}
     DEPENDS ${OCAML_MAIN_FILES}
 )
 
@@ -79,19 +91,19 @@ add_custom_target(ocaml_main ALL
 if(BUILD_TESTING AND PERL_EXECUTABLE)
     add_test(
         NAME ocaml_main1
-        COMMAND ${PERL_EXECUTABLE} ${SCRIPTS_DIR}/test-pipe "2+3" ./ocaml_main arith lr
+        COMMAND ${PERL_EXECUTABLE} ${SCRIPTS_DIR}/test-pipe "2+3" ${OCAMLRUN_EXECUTABLE} ocaml_main arith lr
     )
     add_test(
         NAME ocaml_main2
-        COMMAND ${PERL_EXECUTABLE} ${SCRIPTS_DIR}/test-pipe "2+3" ./ocaml_main arith glr
+        COMMAND ${PERL_EXECUTABLE} ${SCRIPTS_DIR}/test-pipe "2+3" ${OCAMLRUN_EXECUTABLE} ocaml_main arith glr
     )
     add_test(
         NAME ocaml_main3
-        COMMAND ${PERL_EXECUTABLE} ${SCRIPTS_DIR}/test-pipe "2+3" ./ocaml_main een glr
+        COMMAND ${PERL_EXECUTABLE} ${SCRIPTS_DIR}/test-pipe "2+3" ${OCAMLRUN_EXECUTABLE} ocaml_main een glr
     )
     add_test(
         NAME ocaml_main4
-        COMMAND ${PERL_EXECUTABLE} ${SCRIPTS_DIR}/test-pipe "2+3+4" ./ocaml_main een glr ptree
+        COMMAND ${PERL_EXECUTABLE} ${SCRIPTS_DIR}/test-pipe "2+3+4" ${OCAMLRUN_EXECUTABLE} ocaml_main een glr ptree
     )
 elseif(NOT PERL_EXECUTABLE)
     message(WARNING " * Skipping the ocaml tests: Perl not found")

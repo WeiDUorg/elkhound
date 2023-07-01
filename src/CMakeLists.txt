@@ -51,9 +51,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Option(s)
 option(EXTRAS "Compile extra stuff(examples, cparse, etc)" ON)
-if (NOT MSVC)
-    option(OCAML "Run OCaml tests" ON)
-endif()
+option(OCAML "Run OCaml tests" ON)
 
 # set variables
 set(AST_DIR         ${CMAKE_CURRENT_BINARY_DIR}/ast)

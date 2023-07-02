@@ -39,6 +39,9 @@ else()
 
     set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS} /DNDEBUG")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} /DNDEBUG")
+
+    # FLEX code and output needs that not to clobber limit macros
+    add_compile_definitions(__STDC_VERSION__=199901L)
 endif()
 
 # Global include directories

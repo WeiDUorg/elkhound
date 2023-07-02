@@ -94,7 +94,17 @@ string lineDirective(SourceLoc loc)
   int line, col;
   SourceLocManager::instance()->decodeLineCol(loc, fname, line, col);
 
-  return stringc << hashLine() << line << " \"" << fname << "\"\n";
+  std::string cfname;
+  for (const char* p = fname; *p; p++)
+  {
+    char c = *p;
+    if (c == '\\')
+      cfname.append("\\\\");
+    else
+      cfname.push_back(c);
+  }
+
+  return stringc << hashLine() << line << " \"" << cfname.c_str() << "\"\n";
 }
 
 stringBuilder &restoreLine(stringBuilder &sb)

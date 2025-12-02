@@ -56,15 +56,15 @@ add_library(libcparse STATIC
 )
 # all the files for cparse
 add_executable(cparse
-    main
+    main.cc
 )
 
 # all the files for lexer2
 add_executable(lexer2
     lexer2.cc
-    lexer1
-    lexer1yy
-    cc_lang
+    lexer1.cc
+    lexer1yy.cc
+    cc_lang.cc
 )
 
 # extra compile options

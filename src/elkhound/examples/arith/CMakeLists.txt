@@ -18,8 +18,8 @@ add_custom_command(
 
 # all the files for arith
 add_executable(arith
-    arith
-    arithyy
+    arith.cc
+    arithyy.cc
     arith.gr.gen
 )
 
@@ -36,7 +36,7 @@ if(BUILD_TESTING)
         DEPENDS arith
     )
     add_test(
-        NAME arith2 
+        NAME arith2
         COMMAND ${SCRIPTS_DIR}/test-pipe "3 + 4 * 5" ./arith printTree
         DEPENDS arith
     )

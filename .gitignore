@@ -11,3 +11,6 @@
 *.cmo
 *.cmi
 TAGS
+.envrc
+.direnv/
+result

@@ -5,20 +5,6 @@
 cmake_minimum_required(VERSION 3.0)
 project(elkhound)
 
-mark_as_advanced(
-    CLEAR
-    BISON_EXECUTABLE
-)
-
-find_package(BISON REQUIRED)
-
-mark_as_advanced(
-    CLEAR
-    FLEX_EXECUTABLE
-    FLEX_INCLUDE_DIR
-)
-
-find_package(FLEX REQUIRED)
 
 if(NOT MSVC)
     # Global C flags
@@ -33,12 +19,32 @@ if(NOT MSVC)
     # Disable debug for Release builds
     set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -DNDEBUG")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -DNDEBUG")
+    mark_as_advanced(
+        CLEAR
+        BISON_EXECUTABLE
+    )
+
+    find_package(BISON REQUIRED)
+
+    mark_as_advanced(
+        CLEAR
+        FLEX_EXECUTABLE
+        FLEX_INCLUDE_DIR
+    )
+    find_package(FLEX REQUIRED)
 else()
     set(CMAKE_C_FLAGS "/W4")
-    set(CMAKE_CXX_FLAGS "/W4 /EHsc /D_CRT_SECURE_NO_WARNINGS=1 /DYY_NO_UNISTD_H=1")
+    set(CMAKE_CXX_FLAGS "/W4 /EHsc /D_CRT_SECURE_NO_WARNINGS=1 /DYY_NO_UNISTD_H=1 /DNOMINMAX=1")
 
     set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS} /DNDEBUG")
     set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS} /DNDEBUG")
+    set(BISON_EXECUTABLE win_bison)
+    set(FLEX_EXECUTABLE win_flex --wincompat)
+    set(FLEX_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/winflexbison/flex/src")
+
+    add_subdirectory(thirdparty/winflexbison)
+    # FLEX code and output needs that not to clobber limit macros
+    add_compile_definitions(__STDC_VERSION__=199901L)
 endif()
 
 # Global include directories

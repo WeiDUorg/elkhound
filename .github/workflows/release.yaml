@@ -1,0 +1,51 @@
+name: release
+on:
+  workflow_dispatch:
+    inputs:
+      run_id:
+        required: true
+        type: string
+permissions:
+  contents: write
+  actions: read
+jobs:
+  release:
+    name: release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - uses: actions/download-artifact@main
+        with:
+          name: macos-15-intel
+          path: macos-elkhound
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ github.token }}
+      - uses: actions/download-artifact@main
+        with:
+          name: macos-latest
+          path: macos-arm-elkhound
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ github.token }}
+      - uses: actions/download-artifact@main
+        with:
+          name: ubuntu-22.04
+          path: linux-elkhound
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ github.token }}
+      - uses: actions/download-artifact@main
+        with:
+          name: windows-elkhound
+          path: windows-elkhound
+          run-id: ${{ inputs.run_id }}
+          github-token: ${{ github.token }}
+      - run: |
+          mv macos-elkhound/elkhound mac-elkhound
+          mv linux-elkhound/elkhound lin-elkhound
+          mv macos-arm-elkhound/elkhound mac-arm-elkhound
+          mv windows-elkhound/elkhound.exe elkhound.exe
+      - name: Create Release
+        id: create_release
+        uses: ncipollo/release-action@main
+        with:
+          generateReleaseNotes: true
+          artifacts: "lin-elkhound,mac-elkhound,mac-arm-elkhound,elkhound.exe"

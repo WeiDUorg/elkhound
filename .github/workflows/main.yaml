@@ -1,0 +1,108 @@
+name: main
+on:
+  push:
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}
+  cancel-in-progress: true
+jobs:
+  build-linux:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@main
+      - name: build elkhound
+        run: |
+          sudo apt-get update -yqqq
+          sudo apt-get install -yqqq bison cmake flex wget libfl-dev
+          mkdir -p obj
+          cmake -Wno-dev -S src -B obj -DEXTRAS=OFF -DOCAML=OFF -DCMAKE_BUILD_TYPE=Release
+          make -j$(npoc) -C obj
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ubuntu-22.04
+          path: obj/elkhound/elkhound
+          if-no-files-found: error
+  build-macos:
+    strategy:
+      matrix:
+        include:
+          - os: macos-latest
+            include: /opt/homebrew/opt
+          - os: macos-15-intel
+            include: /usr/local/opt
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@main
+      - name: build elkhound
+        run: |
+          export HOMEBREW_NO_AUTO_UPDATE=1
+          brew install flex bison
+          export LDFLAGS="$LDFLAGS -L/${{ matrix.include }}/flex/lib -L/${{ matrix.include }}/bison/lib"
+          echo $LDFLAGS
+          export CPPFLAGS="$CPPFLAGS -I/${{ matrix.include }}/flex/include"
+          echo $CPPFLAGS
+          export PATH="${{ matrix.include }}/flex/bin:${{ matrix.include }}/bison/bin:$PATH"
+          echo $PATH
+          mkdir -p obj
+          cmake -Wno-dev -S src -B obj -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DFLEX_INCLUDE_DIR=${{ matrix.include }}/flex/include -DEXTRAS=OFF -DOCAML=OFF -DCMAKE_BUILD_TYPE=Release
+          make -C obj
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.os }}
+          path: obj/elkhound/elkhound
+          if-no-files-found: error
+  build-windows:
+    runs-on: windows-2022
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@main
+      - name: Set up cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.buildcache
+          key: win-${{ github.sha }}
+          restore-keys: |
+           win
+      - name: install MSVC 2017
+        shell: pwsh
+        run: |
+          $vs_url = "https://aka.ms/vs/15/release/vs_BuildTools.exe"
+          Invoke-WebRequest -Uri $vs_url -OutFile "vs_buildtools.exe"
+          if (-not (Test-Path "vs_buildtools.exe")) {
+              Write-Error "Failed to download VS Build Tools"
+              exit 1
+          }
+          $components = @(
+            "Microsoft.VisualStudio.Workload.VCTools",
+            "Microsoft.VisualStudio.Component.Windows10SDK.19041",
+            "Microsoft.VisualStudio.Component.VC.v143.x86.x64",
+            "Microsoft.VisualStudio.Component.VC.CMake.Project"
+          )
+          $componentArgs = ($components | ForEach-Object { "--add $_" }) -join " "
+          $installCmd = ".\vs_buildtools.exe --quiet --norestart --force --wait --installPath C:\BuildTools $componentArgs"
+          Start-Process -FilePath ".\vs_buildtools.exe" -ArgumentList $installCmd.Split() -Wait -PassThru
+      - name: build elkhound
+        shell: cmd
+        run: |
+          call "C:\BuildTools\VC\Auxiliary\Build\vcvarsall.bat" x64
+          cmake -version
+          msbuild -version
+          mkdir build
+          cmake -Wno-dev -G Ninja -S src -B build -DEXTRAS=OFF -DOCAML=OFF -DCMAKE_BUILD_TYPE=Release
+          cd build
+          ninja
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows-elkhound
+          path: build/elkhound/elkhound.exe
+          if-no-files-found: error
+  trigger-release:
+    needs: [build-macos, build-linux, build-windows]
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@main
+      - name: trigger
+        run: |
+            gh workflow run release.yaml --ref ${{ github.ref_name }} -f run_id=${{ github.run_id }}
+        env:
+          GH_TOKEN: ${{ github.token }}

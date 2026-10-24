@@ -1070,7 +1070,7 @@ void emitTable(EmitCode &out, EltType const *table, int size, int rowLength,
   bool needCast = 0==strcmp(typeName, "StateId");
 
   if (size * sizeof(*table) > 50) {    // suppress small ones
-    out << "  // storage size: " << size * sizeof(*table) << " bytes\n";
+    // out << "  // storage size: " << size * sizeof(*table) << " bytes\n";
     if (size % rowLength == 0) {
       out << "  // rows: " << (size/rowLength) << "  cols: " << rowLength << "\n";
     }
